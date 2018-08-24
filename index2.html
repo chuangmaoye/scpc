@@ -1,0 +1,483 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript">
+function readXPath(element) {
+    if (element.id!==""){//判断id属性，如果这个元素有id，则显 示//*[@id="xPath"]  形式内容
+        return '//*[@id=\"'+element.id+'\"]';
+    }
+
+    if (element.getAttribute("class")!==null){ //判断class属性，如果这个元素有class，则显 示//*[@class="xPath"]  形式内容
+        return '//*[@class=\"'+element.getAttribute("class")+'\"]';
+    }
+    //因为Xpath属性不止id和class，所以还可以更具class形式添加属性
+    //这里需要需要主要字符串转译问题，可参考js 动态生成html时字符串和变量转译（注意引号的作用）
+
+    if (element==document.body){//递归到body处，结束递归
+        return '/html/'+element.tagName;
+    }
+
+    var ix= 0,//在nodelist中的位置，且每次点击初始化
+          siblings= element.parentNode.childNodes;//同级的子元素
+
+    for (var i= 0,l=siblings.length; i<l; i++) {
+        var sibling= siblings[i];
+        if (sibling==element){//如果这个元素是siblings数组中的元素，则执行递归操作
+            return arguments.callee(element.parentNode)+'/'+element.tagName+((ix+1)==1?'':'['+(ix+1)+']');//ix+1是因为xpath是从1开始计数的，element.tagName+((ix+1)==1?'':'['+(ix+1)+']')三元运算符，如果是第一个则不显示，从2开始显示
+        }else if(sibling.nodeType==1 && sibling.tagName==element.tagName){//如果不符合，判断是否是element元素，并且是否是相同元素，如果是相同的就开始累加
+            ix++;
+        }
+    }
+};
+$(document).ready(function () {
+    var xpath = '', o;
+    $('#load_content_html *').click(function (e) {
+        e.stopPropagation();//停止冒泡
+        o = this;
+        alert(readXPath(o));
+    });
+});
+</script>
+</head>
+
+<body>
+<div id="load_content_html">
+<!DOCTYPE HTML>
+<html>
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>【58同城 58.com】北京分类信息 - 本地 免费 高效</title>
+<meta name="Keywords"  content="北京分类信息,北京免费发布信息" />
+<meta name="Description" content="58同城北京分类信息网，为你提供房产、招聘、黄页、团购、交友、二手、宠物、车辆、周边游等海量分类信息，充分满足您免费查看/发布信息的需求。北京58同城，最好的分类信息网。" />
+<meta name="baidu_ssp_verify" content="1e2e63538abe13970ec80cb51a443ee4">
+<meta name="mobile-agent" content="format=xhtml; url=http://m.58.com/local/bj/">
+<meta name="mobile-agent" content="format=html5; url=http://m.58.com/local/bj/">
+<meta name="mobile-agent" content="format=wml; url=http://m.58.com/local/bj/">
+<style type="text/css">@charset "utf-8";body,dd,dl,dt,h2,h3,h4,li,ol,p,ul{margin:0;padding:0;list-style:none;-webkit-text-size-adjust:none}body{font:12px/1.2 arial,Tahoma,SimSun,sans-serif;color:#333;min-width:1190px;text-rendering:geometricPrecision}a{color:#15c;text-decoration:none;cursor:pointer}a:hover{color:red;text-decoration:underline}:focus{outline:0}.arrow{background-image:url(http://img.58cdn.com.cn/ui6/index/topbar.png?v=20120302)!important}#topbar{width:100%;height:27px;background:#f5f5f5;color:#666;font:12px/2 Arial,Tahoma,"宋体";-webkit-text-size-adjust:none;border-bottom:1px solid #ddd}#topbar input,#topbar p,#topbar ul{margin:0;padding:0}#topbar li{list-style:none}#topbar a{text-decoration:none}#topbar a:hover{text-decoration:underline}.hc{display:none}.sc{display:block}#topbar input{font-family:Tahoma;font-size:12px}#topbar .w,#topbar .warp{clear:both;line-height:27px}#myfeet p a,#sitemapBox strong a,#topbar .mapfuc a{color:#00c}#topbar a:hover{color:red}.bar_left{float:left;word-spacing:1px;padding-left:10px;height:27px}.bar_right{float:right}.bar_left h2{display:inline;font-weight:700;font-size:16px;color:red;float:left}.bar_left .tuan{display:inline-block;position:relative;padding-right:30px}#login,#topbar .haschild{float:left}.arrow,.tuan sup{display:block;position:absolute;width:7px;height:4px;overflow:hidden;top:12px}.tuan sup{width:26px;height:12px;top:3px;background:url() no-repeat 0 -102px}.arrow{background:url() no-repeat 0 -156px}.gap{color:#ccc;margin:0 6px;font-family:'宋体';*font-family:Tahoma}.hover .hc{display:block;position:absolute;top:28px;zoom:1;border:1px solid #dcdcdc;border-top:0;background:#fff;padding:10px}#topbar .w{background:#f5f5f5;height:27px;border-bottom:1px solid #ddd;position:relative;_border-bottom:0}#topbar .haschild{height:28px;line-height:28px;position:relative;z-index:999}#navlist{float:left;margin-left:30px}#navlist ul li .gap{margin:0;float:left}#navlist ul{color:#585858}#navlist ul li{float:left;height:27px;line-height:27px}#navlist ul li a{color:#585858;padding:0 10px;float:left;position:relative}#navlist ul li a:hover{color:red}#navlist li i.phone{width:9px;height:13px;background:url(http://img.58cdn.com.cn/ui6/index/indexbg.png) no-repeat -26px -34px;display:inline-block;margin-right:5px;float:left;margin-top:7px}#navlist li a i{width:11px;height:11px;background:url(http://img.58cdn.com.cn/ui6/index/indexbg.png) no-repeat;display:inline-block}#navlist li a i.n{position:absolute;background-position:-66px -34px;right:-2px;top:0}#topbar .hover{background:#fff;border-left:solid 1px #dcdadc;border-right:solid 1px #dcdadc;z-index:999;margin:0 -1px}#topbar .hover .arrow{background-position:-7px -156px}#myfeetBox{width:215px;left:-208px}#modify{margin-right:-10px}#myfeet .line{border-bottom:solid 1px #f3f3f3;margin-bottom:3px}#myfeet li{height:27px;line-height:27px;border-top:1px solid #f3f3f3;padding-left:18px;background:url(http://img.58cdn.com.cn/ui6/index/topbar.png?v=20120302) 3px -176px no-repeat}#login{line-height:27px;padding:0 8px;position:relative;background:url(http://img.58cdn.com.cn/ui6/index/line.png) no-repeat right 8px}#login a{color:#666}#sitemapBox .mapfuc{padding-top:3px}#sitemapBox br{line-height:0}.shadow{display:block;clear:both;border-top:solid 1px #ddd;width:100%;background:#f0f0f0;height:1px;line-height:0;font-size:0;overflow:hidden;position:absolute;left:0;bottom:-3px;_padding:0 10px;opacity:.4;filter:alpha(opacity=40);z-index:-1}#topbar #sitemapBox .shadow,#topbar .order .shadow{_bottom:-4px}.msgTips{position:absolute;z-index:999;color:#000;top:26px;left:-55px;_overflow-x:hidden;border:solid 1px #e7d95f;border-radius:2px;-moz-border-radius:2px;-webkit-border-radius:2px;padding:0 1px 1px;background:#fefacc;width:180px}.msgTips_arrow{position:absolute;top:-7px;left:88px;width:14px;height:8px;z-index:9;background-position:0 -242px}.msgTips_con{border-top:1px solid #fff;background:url() no-repeat 5px -252px;line-height:20px;padding:5px 20px 5px 25px}.msgTips .shadow{border-top:0;bottom:-2px;background:#dedede}.msgTips_close{position:absolute;right:8px;top:11px;width:10px;height:11px;overflow:hidden;background-position:0 -229px;cursor:pointer;z-index:999}.pos{position:relative;z-index:999}.bar_right{position:absolute;top:0;right:0}#infomsg{background:0 0;color:#000;width:auto;text-align:right;padding:5px;line-height:16px;border:0;margin:5px;position:absolute;right:0;bottom:0;z-index:1000}.close{background:url(http://img.58cdn.com.cn/ui6/index/topbar.png) no-repeat 0 -229px;width:9px;height:9px;margin:0;padding:0;display:inline-block;float:right;text-decoration:none;overflow:hidden}.close:hover{background-position:-17px -229px}#myfeet h4.category{font-size:12px}#loginbox{width:54px;left:-1px;padding:0 7px}#loginbox a{float:left;clear:left;width:100%;white-space:nowrap}.mobile{background:url(http://img.58cdn.com.cn/ui6/index/topbar.png?v=120719) no-repeat 54px -504px;padding-right:20px}#ipconfig{*position:relative;*z-index:999;float:left;margin-left:3px}#sitemapBox .maplist{padding-bottom:5px;font-family:tahoma;+font-family:Arial}#sitemapBox{width:296px;right:-1px;_right:-2px;line-height:22px}#my58menu.haschild{padding:0 10px;padding-right:20px}#ipconfig a,.haschild a{color:#666}#myfeet.haschild.hover,#sitemap.haschild.hover{background:#fff}#myfeet .arrow,#sitemap .arrow,.bar_right .mytxt{display:none}#myfeet .feet_icon,#sitemap .map_icon{font-size:0;width:28px;height:27px;display:inline-block}#myfeet .feet_icon{background:url(http://img.58cdn.com.cn/ui6/index/topbar.png?v=4) no-repeat 7px -526px}#myfeet.hover .feet_icon{background-color:#fff;background-position:-17px -526px}#sitemap .map_icon{background:url(http://img.58cdn.com.cn/ui6/index/topbar.png?v=4) no-repeat -40px -526px}#sitemap.hover .map_icon{background-color:#fff;background-position:-62px -526px}.maplist01 li{border-left:1px solid #e8e9eb;padding:0 0 0 13px;width:85px;float:left;line-height:22px;font-size:12px;color:#888;height:337px}.maplist01 li.nline{border:0}.maplist01 li h3{color:#282828;font-size:12px;font-weight:400;margin-top:8px}.maplist01 li a{color:#888;position:relative;display:inline-block}.maplist01 li h3 a{color:#282828}.maplist01 li a i{width:9px;height:12px;background:url(http://img.58cdn.com.cn/ui6/index/indexbg.png) no-repeat;display:inline-block}.maplist01 li a i.h{position:absolute;background:url(http://img.58cdn.com.cn/ui6/index/icon-h.gif) no-repeat 0 0;right:-12px;top:6px}.maplist01 li a i.n{position:absolute;background:url(http://img.58cdn.com.cn/ui6/index/icon-n.gif) no-repeat 0 0;right:-12px;top:6px}.maplist01 li em{width:45%;font-style:normal;display:inline-block}.help-con,.vip-con{padding:0 10px;height:28px;line-height:28px;float:left;background:url(http://img.58cdn.com.cn/ui6/index/line.png) left 8px no-repeat}.vip-con a{color:#666}.vip-con a:hover{color:red}#topbar #link_city_change{color:#00c;margin-left:5px}.clear,.line{clear:both;font-size:0;height:0;overflow:hidden}.line{border-top:1px dotted #dce2e6;margin-top:6px;margin-left:-20px}img{border:0}.mt{margin-top:10px}.mr10{margin-right:10px}.pad-tb-15{padding-top:15px;padding-bottom:15px}#footer,#headerinside,.morelink{background:#fff;width:1190px;margin:0 auto;clear:both}.cb{border:1px solid #dadbdf;border-top:0;width:1188px;margin:0 auto;clear:both;overflow:hidden;position:relative}#headerinside{height:70px;position:relative;z-index:666;margin-top:5px}#logo{position:absolute;left:0;top:10px}#searchbar{position:absolute;left:407px;top:11px;line-height:26px;overflow:hidden}#searchbar i{font-style:normal}.keyword{color:#c8c8c8}#keyword.keyword2{background-position:0 50px;color:#292929}#fabu,#fabu i,#key,#saerkey{background:url(http://img.58cdn.com.cn/ui6/index/indexbg.png) repeat-x}.inputcon input:active{background:#eb6d13}#fabu{position:absolute;right:0;top:11px;font-weight:700;width:107px;padding-left:41px;height:32px;line-height:32px;border:1px solid #ffb38c;font-size:14px;color:#e50;text-align:left;cursor:pointer;background-position:0 -373px}a:hover#fabu{background-position:0 -406px;text-decoration:none}#fabu i{width:15px;height:15px;position:absolute;top:9px;left:20px;background-position:0 -34px;display:inline-block;overflow:hidden}#saerkey{background:#fff;height:30px;padding-left:13px;float:left;overflow:hidden;border:2px solid #F78015;border-right:0}#key{background:#fff;height:30px;line-height:34px;float:left}#keyword{background:0 0;width:450px;height:22px;font-size:14px;line-height:22px;padding:4px 2px 4px 0;border:0;float:left;display:inline-block;overflow:hidden}input.btnal2,input.btnall{-webkit-appearance:none;-webkit-border-radius:0;height:34px;line-height:34px;font-size:14px;font-weight:700;border:0;cursor:pointer;overflow:hidden;text-align:center;color:#fff;float:left;margin:0;padding:0 20px;+padding:0 10px}input.btnall{background:#f78015}input.btnal2{background:#eb6d13}.inputcon{float:left;height:34px;overflow:hidden}#hot,.hot2{float:left}#hot a,.hot2 a{margin-right:10px;color:#666;float:left}#hot a{display:none}.hot3{float:left}.hot3 a{margin-right:10px;color:#666;float:left}#cbright .hypic,#cbright .tpic,.cb .hpic20,.cb .hpic21,.cbrtit{background-image:url(http://img.58cdn.com.cn/ui6/index/newbg.png?v=3)!important}.tooltip{padding:1px;border:1px solid #dcdadc;background:#fff;margin-top:-4px;*margin-top:-2px;margin-left:-15px;*margin-left:-13px;overflow:hidden;width:463px}.tooltip ul{padding:0;margin:0}.tooltip li{line-height:28px;overflow:hidden;padding:0 12px;list-style:none}.tooltip li a{text-decoration:none;color:#e50;font-size:14px;font-weight:400}.tooltip li a b{color:#292929;font-weight:lighter}.tooltip li a i{font-style:normal;color:#adabac}.tooltip li a em{font-style:normal;color:#e50}.tooltip li .tool_r{float:right;color:#a8a8a8;font-size:12px}.tooltip li.selected{background:#f0f0f0;cursor:pointer}.navcon{width:1190px;margin:0 auto;height:38px;display:block;background:url(http://img.58cdn.com.cn/ui6/index/indexbg.png) repeat-x 0 -153px;position:relative;margin-top:8px;z-index:99}.nav{border:1px solid #dbdbdd;border-width:0 1px;height:35px;line-height:35px;padding-left:8px}.nav li{float:left;margin:0 1px;padding-top:1px;height:34px;line-height:34px;display:inline;position:relative}.nav li a{color:#000;padding:0 10px;display:block;font-size:14px}.nav li.on{background:#ed7612;border:1px solid #d50;border-bottom:0}.nav li.on a{color:#fff;font-weight:700}.rightside{position:absolute;right:20px;top:0}.rightside li{height:35px;line-height:35px;display:inline;float:left;margin:0 10px 0 2px;position:relative}.rightside li a{font-size:12px;color:#585858;display:inline-block}.rightside li a:hover{color:#f05502;text-decoration:none}.rightside li i.phone{width:9px;height:13px;background:url(http://img.58cdn.com.cn/ui6/index/indexbg.png) no-repeat -26px -34px;display:inline-block;margin-right:5px;position:relative;top:2px;left:0}.rightside li a.on{color:#f05502}.closewindow{float:right;margin:-5px 5px 0 0}.warp{float:left;width:auto;_width:847px;overflow:hidden;position:relative;margin-bottom:-3300px;padding-bottom:3300px;border-right:1px solid #dadbdf}.c_b a,.c_b i{font-size:14px;font-style:normal;display:inline-block}.cb .jf12,.jf12 a{font-size:12px}.cb h2 a{color:#292929}.c_b h2 a{padding:0}.c_b em{font-style:normal;display:inline-block;width:50%;white-space:nowrap}.c_b em.w1{width:50%}.c_b_ew2 em{width:25%}.c_b_ew3 em,#zp_brand_wrap em{width:33%}.c_b_ews em{width:38%}.cbp5{width:1168px;padding-top:12px;padding-bottom:12px}.c_b_ew4 em{margin-right:21px;width:auto}.c_b_ew5 em{width:20%}#footer .bg{text-align:center;color:#888;line-height:26px}#footer #flink{padding:5px 10px;border-top:1px solid #dce2e6;line-height:22px;color:#bebebe;font-weight:900;text-align:center}#footer a{color:#585858;font-weight:400}#flink a{margin:0 0 0 5px;white-space:nowrap\9;color:#bebebe;display:inline-block\9}#flink a:hover{text-decoration:none}#contact{padding:5px 0}#contact a{margin:0 12px;color:#000}#contact a.fduihua,.mapfuc a.fduihua{background:url(http://img.58cdn.com.cn/ui6/index/bgpic.png) no-repeat right -505px;padding-right:22px;margin-right:0}#contact a.fduihua{background-position:right -580px;margin-right:8px}#contact span{color:#dcdcdc}.nanyou,.nvyou{background:url(http://img.58cdn.com.cn/ui6/index/bgpic.png) no-repeat;background-position:right -529px;padding-right:20px;margin:5px 0;line-height:18px;display:inline-block}.nanyou{background-position:right -556px}.yygh{background:url(http://img.58cdn.com.cn/ui6/index/bgpic.png) no-repeat 0 -625px;*background-position:0 -627px;padding-left:20px}.c_b{float:left;line-height:30px;color:#15c;font-size:14px;padding-left:20px}.lh27,.lh27 .c_b{line-height:27px}.lh28,.lh28 .c_b{line-height:28px}.lh29,.lh29 .c_b{line-height:29px}.cb a{margin-right:3px}.cb i{margin-left:-3px}.c_b h2 a.hgray,.c_b h3 a.hgray{color:#585858}.c_b h2 a.mg01,.c_b h3 a.mg01{margin-left:26px}.c_b h2 a.mg02,.c_b h3 a.mg02{margin-left:16px}.morelinkinside .bangbang{background:url(http://img.58cdn.com.cn/ui6/index/new_icon.gif) no-repeat right 2px;padding-right:25px}.cb h2,.cb h3,.cb h4{font-family:Verdana,SimSun;font-size:14px;color:#292929;line-height:22px;padding:12px 0 3px}.cb h6{line-height:22px;padding:5px 0 3px}#cbright{float:left;padding-left:20px;overflow:hidden;margin-left:-1px;width:318px}.cbp2{width:220px;overflow:visible;border-right:1px solid #DADBDF}#cbright .h2con{background:url(http://img.58cdn.com.cn/ui6/index/indexbg.png) no-repeat -148px -241px;margin-left:-20px;position:relative}#cbright h2{margin-left:-20px;padding-left:18px;background:url(http://img.58cdn.com.cn/ui6/index/indexbg.png) no-repeat -148px -241px;vertical-align:bottom}#cbright .h2con h2,#cbright .h2con h3{background:0 0;background:#fff;margin-left:2px;padding-left:18px}.c_b h2 a.cs,.cs{color:red;font-size:12px;font-weight:lighter}.c_b h2 a.cs14{font-size:14px;color:red;font-weight:lighter}.tuan_txt{font-size:12px;font-weight:lighter;height:30px;text-align:left;line-height:30px;overflow:hidden;margin:2px 0}.tuan_txt li{width:100%;height:30px;overflow:hidden}.c_b .tuan_txt a{font-size:12px;color:#585858}.c_b .tuan_txt li a.red{color:red}#delinfo{position:absolute;top:52px;right:30px;color:#666}.esbed{position:absolute;left:222px;top:7px;width:107px;height:56px;display:inline-block;background:url(http://img.58cdn.com.cn/ui6/index/banner/esemb.gif) no-repeat 0 0}.c_b_list{overflow:hidden}.c_b_list li{width:50%;float:left}.c_b_list li em{width:50%}#topbar .w,#topbar .warp{width:1190px;margin:0 auto}.arrow,.tuan sup{right:8px}#cbright .c_b{width:auto;float:none;padding:0}.cauto{margin-bottom:-3000px;padding-bottom:3010px;padding-top:10px}.embed,.embed01{position:absolute;left:222px;top:0;width:108px;height:69px;display:block;background:url() no-repeat 0 0}.embed01{background-image:url(http://img.58cdn.com.cn/ui6/index/bbminibanner.gif);width:130px}a:hover.embed{background-position:-124px 0}a:hover.embed01{background-position:0 0}.noborder{border:0}a.closed{position:absolute;top:8px;right:8px;width:9px;height:8px;display:block;overflow:hidden;text-indent:-99em;background:url(http://img.58cdn.com.cn/ui6/index/closed.gif) no-repeat}a:hover.closed{background-position:-9px 0}.mt3{margin:3px 0}.adpic{margin-top:10px}.adpic a{margin-right:0;float:left}.adpic img{width:230px;height:80px;border:1px solid #dedfe0;margin-right:7px;_margin-right:6px;float:left;overflow:hidden}.cb a.lad{margin-top:10px;display:block;height:50px;background:url(http://img.58cdn.com.cn/ui6/index/banner/bottom_zhuangxiu_1190_2.jpg) no-repeat}.cb a.ladb{width:1190px;display:block;cursor:pointer;height:50px;background:url(http://img.58cdn.com.cn/ui6/index/banner/bottom_anniversary_1190.gif) no-repeat;margin-top:6px}.cb a.ladt{width:1190px;display:block;height:50px;background:url(http://img.58cdn.com.cn/ui6/index/banner/jianzhan_1190.jpg) no-repeat}.cb a.pinjian{background:url(http://img.58cdn.com.cn/ui6/index/banner/pinjian_1190.png) no-repeat;}a.abSide{width:90px;height:20px;text-indent:-999em;overflow:hidden;position:absolute;top:15px;left:101px;background:url(http://img.58cdn.com.cn/ui6/index/home_pet_dog_guang3.gif) no-repeat scroll 0px 0px transparent;margin-left:0}.c_b h2 a.ershoucs{margin-left:15px;color:#585858;font-size:12px;font-weight:400}.c_b h2 a.fnms{margin-left:15px}.promotion{width:126px;height:31px;position:absolute;right:204px;top:2px}.w3 a{width:32%;margin:0;_width:30%}#cbright .c_b h3 a.nlmfy{margin-left:15px;color:#15C;font-weight:400}#cbright .c_b h3 a.nlmfy:hover{color:red}#cbright .c_b h3 a.zsjm{color:#585858;font-size:12px;font-weight:400;margin-left:15px}.morelink{margin-top:10px;display:none;_display:block}.morelinkinside{border:solid 1px #dce2e6;background:#fcfcfc;padding:20px 10px;text-align:center}.life{line-height:30px;height:30px;overflow:hidden}.life span{margin-right:15px;display:inline-block}.searchbt{height:34px;overflow:hidden}#searchbarbt{line-height:26px;height:34px;overflow:hidden;font-size:12px;width:610px;margin:0 auto}#searchbarbt i{font-style:normal}#saerkeybt{height:30px;padding-left:13px;float:left;overflow:hidden;border:2px solid #F78015;border-right:0}#keybt{height:30px;line-height:30px;float:left}#keywordbt{background:0 0;width:447px;height:22px;font-size:14px;line-height:22px;padding:4px 2px 4px 0;border:0;float:left;display:inline-block;overflow:hidden}.c_b h2 a.award{font-size:12px;color:red;font-weight:lighter;margin-left:10px}.tooltip ul.searchline{margin-left:20px;background:url(http://img.58cdn.com.cn/ui6/index/s_l01.png) repeat-y}.tooltip ul.searchline a{font-size:12px}.tooltip ul.searchline li{line-height:24px;height:24px;font-size:12px;background:url(http://img.58cdn.com.cn/ui6/index/s_l02.png) no-repeat 0 12px;padding-left:18px}#cbright .c_b h2 a.travel,#cbright .c_b h3 a.travel,#cbright .c_b h4 a.travel{font-size:12px;color:red;margin-left:15px;font-weight:400}#cbright .c_b h2 a.sy,#cbright .c_b h3 a.sy,#cbright .c_b h4 a.dp,#cbright .c_b h4 a.sy{font-size:12px;color:#585858;margin-left:15px;font-weight:400}.cb a.dogcs{margin-left:15px;color:red;font-size:12px;font-weight:400}.cb a.gamecs,.cb a.jj,.cb h2 a.dp{margin-left:15px;color:#585858;font-size:12px;font-weight:400}.cb h2 .j_rad{margin-left:24px}.cb h2 .j_rad a{font-size:14px;color:#15c;font-weight:400}.cb .adv{color:#585858;font-size:12px;font-weight:400}.embed02{position:absolute;left:222px;top:5px;width:130px;height:60px;display:block;background:url(http://img.58cdn.com.cn/ui6/index/hsjbj_mini.gif) no-repeat 0 0}a:hover.embed02{background-position:-130px 0}.embed03{position:absolute;left:222px;top:5px;width:130px;height:60px;display:block;background:url(http://img.58cdn.com.cn/ui6/index/zpminibanner.png) no-repeat 0 0}.embed04{position:absolute;left:222px;top:15px;width:150px;height:50px;display:block;}.cb a.mr0{margin-right:0}@media screen and (-webkit-min-device-pixel-ratio:0){#keyword,#navlist li{line-height:100%}}.qzzn{padding-top:10px}#contact .attention{color:#000;margin:0 12px;position:relative;_display:inline;_zoom:1}#contact .attention a{margin:0 8px 0 0;_margin:4px 8px 5px 0}#contact .orange{color:#ff8622}.icon-qq,.icon-qzone,.icon-sina,.icon-weixin{width:17px;height:17px;line-height:17px;overflow:hidden;display:inline-block;_zoom:1;_display:inline;background:url(http://img.58cdn.com.cn/ui6/index/indexIcon.jpg) no-repeat 0 0;vertical-align:middle;_font-size:0;_line-height:0}.icon-sina:hover{background-position:0 -20px}.icon-qq{background-position:-18px 0}.icon-qq:hover{background-position:-18px -20px}.icon-qzone{background-position:-37px 0}.icon-qzone:hover{background-position:-37px -20px}.icon-weixin{width:18px;background-position:-54px 0}.icon-weixin.active,.icon-weixin:hover{width:18px;background-position:-54px -20px}.weiLayer{border:1px solid #d9d9d9;padding:20px 20px 12px;color:#595959;width:278px;position:absolute;bottom:25px;right:4px;background:#fff;text-align:left;cursor:auto;display:none}.weiLayer h3{font-weight:700;text-align:left;margin:0;font-size:14px;line-height:20px;padding-bottom:4px}.weiLayer p{line-height:20px}.weiLayer .erweima{width:103px;height:103px;margin:0 20px 6px 0;float:left;background:url(http://img.58cdn.com.cn/ui6/index/home_erweima.jpg) no-repeat 0 0}.weiLayer .line{clear:both;margin:6px 0}.weiLayer .triangle{background:url(http://img.58cdn.com.cn/ui6/index/indexIcon.jpg) no-repeat -95px 0;width:11px;height:7px;position:absolute;bottom:-7px;right:8px;font-size:0}#weiLayer a.close{background:url(http://img.58cdn.com.cn/ui6/index/indexIcon.jpg) no-repeat -73px 0;position:absolute;top:9px;right:9px;width:19px;height:19px;text-indent:-99em;overflow:hidden;display:block;margin:0}#weiLayer a.close:hover{background-position:-73px -20px}.tab .tit{background:#f6f6f7;border-bottom:1px solid #d8dadd;height:36px;margin-left:-1px}.tab .tit span{display:inline-block;width:106px;text-align:center;font-size:14px;line-height:34px;color:#595959;background:#fff;margin-right:2px;border:1px solid #d8dadd;cursor:pointer;position:relative;top:0;top:1px}.tab .tit span.active{font-weight:700;border-bottom:1px solid #fff}.tab h3{font-weight:400;line-height:16px}.tab .tabCon{padding:16px 0;display:none;height:118px;overflow:hidden}.tab .qlink{padding-right:15px}.tab .qlink a.red{color:red}.tab .qlink a{color:#585858;font-size:12px;line-height:35px;margin-right:15px}.tab .imgTag{padding-left:17px}.tab .imgTag li{padding:3px 0;float:left;width:180px;margin:0 14px 0 0}.tab .imgTag li a{display:block;position:relative;margin:0;height:110px}.tab .imgTag li a:hover span{text-decoration:underline}.tab .imgTag img{width:180px;height:110px;margin:0;display:block}.tab .imgTag span{position:absolute;left:0;right:0;bottom:0;font-size:12px;line-height:26px;height:26px;background:#000;opacity:.6;filter:alpha(opacity=60);color:#fff;text-align:center;width:100%}.tab .imgTag span.shade{top:0;height:110px;display:none;background:#fff}.weather{float:left;margin-left:15px;position:relative;word-spacing:0}.wt img{margin:0 8px 0 0;width:19px;height:21px;vertical-align:middle}.wt em{_zoom:1;font-style:normal}.wt .wTemp{position:relative;top:1px}.today_lv{margin:0 0 0 10px;background:url(http://img.58cdn.com.cn/ui6/index/indexbg.png) no-repeat;padding:0 3px;display:inline-block;_display:inline;_zoom:1;line-height:16px;color:#fff}.today_lv_1{background-position:0 -442px}.today_lv_0{background-position:-56px -442px}.wb{border:1px solid #e4e1e1;position:absolute;left:0;top:27px;z-index:1000;background:#fff;width:470px;line-height:20px;display:none}.w_hover .wb{display:block}.wb .air{color:#959595;padding:0 10px;line-height:30px}.wb .air .airNum{font-size:16px;vertical-align:middle;font-style:normal}.wb .air .airNum_0{color:#78b934}.wb .air .airNum_1{color:red}.wb .wsource{position:absolute;right:10px;top:0}.wb .wsource a{color:#0ca2eb!important;background:url(http://img.58cdn.com.cn/ui6/index/indexbg.png) no-repeat -130px -37px;padding-left:22px}.wb .wDay{padding:10px 0;overflow:hidden;position:relative;left:-1px}.wb .wDay li{float:left;width:155px;height:160px;text-align:center;border-left:1px solid #e4e1e1}.wb .wDay img{display:block;width:56px;height:63px;margin:10px auto 5px}.wb .prompt{zoom:1;background:#f7f7f8;clear:both;border-top:1px solid #e4e1e1;position:relative;padding:10px 10px 10px 75px;_zoom:1}.wb .prompt b{position:absolute;left:10px;top:10px}.dot{background:url(http://img.58cdn.com.cn/ui6/index/indexbg.png) repeat-x 0 -440px;height:1px;font-size:0;line-height:0;overflow:hidden}h5{font-size:12px;margin:0;padding:0;color:#333;display:inline-block;*display:inline;*zoom:1}h5 a,h5 a:hover{color:#292929}.cp,.cp a{font-size:12px}.cp .c_b{padding-left:19px;border-left:1px dotted #d8dadd;position:relative;left:-1px}.cp em a{margin-right:0}.cp_1{padding:2px 0 0 15px;line-height:20px;margin-right:12px;width:460px;float:left}.cp_2{width:384px;line-height:38px}.cp_3{width:255px;line-height:25px;padding:6px 0}.cp_1 h5{width:50px}.cp_2 h5{width:65px;position:relative}.cp_2 h5 span{position:absolute;left:-12px;top:28px;line-height:20px;color:#999;font-weight:400;white-space:nowrap}.cp_2 em{width:16%}.cp_3 em{width:36%}.cp_1 a,.cp_1 span{display:inline-block;*display:inline;*zoom:1}.cp_1 li{position:relative;padding:6px 0}.cp_1 .phase{width:90px}.cp_1 .prize{width:220px}.cp_1 .c-blue,.cp_1 .c-red{background:url(http://img.58cdn.com.cn/ui6/index/indexbg.png) no-repeat -128px -442px;width:20px;height:20px;text-align:center;color:#fff;margin-right:5px}.cp_1 .c-blue{background-position:-106px -442px}.cp_1 .buy{border:1px solid #d2d2d2;padding:0 20px;line-height:24px;margin-right:0;color:#473b3f;background:url(http://img.58cdn.com.cn/ui6/index/indexbg.png) repeat-x 0 -308px}.cp_1 .buy:hover{border:1px solid #f4782f;color:#fff;background:#fd823a;text-decoration:none}.cp_1 a.result:hover{text-decoration:none}.szc_em em{width:13%}.esc{position:relative}.esc .cx{position:absolute;left:0;top:0;background:#fff}.search-fix{padding-top:70px}.search-fix #header{background:#fff;position:fixed;width:100%;z-index:999;top:0;height:65px;overflow:hidden}.search-fix .search-no{display:none;visibility:hidden;}.search-fix #logo img{width:150px;height:40px;margin-top:-4px}.search-fix #searchbar{left:315px}.hShadow{font-size:0;line-height:0;height:6px;overflow:hidden;background:url(http://img.58cdn.com.cn/ui6/index/indexbg.png) repeat-x 0 -463px;display:none;position:fixed;top:65px;width:100%;z-index:999}.search-fix .hShadow{display:block}.ad_hq,.ad_sj{display:none}.mbox{position:absolute;top:35px;text-align:center;background:#fff;border:1px solid #d1d1d1;z-index:99;padding:5px 0}.mbox ul{overflow:hidden}.mbox ul li{width:192px;float:left;border-left:1px dashed #e5e5e5;margin:0;position:relative;left:-1px;height:181px}.mbox p span{color:#15c}.mbox .bg{background:url(http://img.58cdn.com.cn/ui6/index/bg_top_ewm.png?v=18) no-repeat 0 0;margin:0 auto;overflow:hidden}.mbox .m_jiao{background-position:-248px -128px;width:13px;height:8px;position:absolute;left:380px;top:-8px}.mbox .m_khd{width:137px;height:137px}.mbox .m_wx{background-position:-148px 0;width:113px;height:113px}.mbox .m_qqgzh{background-position:-508px 0;width:113px;height:113px}.mbox .m_llq{background-position:0 -143px;width:169px;height:48px;margin-top:36px}.mbox .m_bb{background-position:-396px 0;width:88px;height:113px}.mbox .m_zp{background-position:-274px 0;width:88px;height:113px}.nav li i.ewm{width:9px;height:9px;overflow:hidden;background:url(http://img.58cdn.com.cn/ui6/index/icon-ewm.gif) no-repeat 0 0;display:block;position:absolute;top:13px;left:61px}.nav li a:hover i.ewm{background-position:0 -11px}i.lipin{width:17px;height:14px;background:url(http://img.58cdn.com.cn/ui6/index/icon-trophy.gif) no-repeat 0 0;display:block;position:absolute;top:10px;left:57px}.mbox .btxt{text-align:left;padding:30px 0 0 40px;height:150px}.mbox .btxt a{padding:0;display:inline}.mbox .m_bang{background-position:-270px 0;width:127px;height:127px;display:block;padding:0!important}.bt,.btm{font-family:'微软雅黑',arial}.bt{font-size:14px}.btm{font-size:16px}.btm i{font-style:normal;color:#fb6059}#bangBox{left:-280px;width:495px}#bangBox .m_jiao{left:310px}#bang a{padding-right:10px}#mobileBox{left:-350px;width:776px}.ad_zx{display:none}#topbannercontent_b,#topbannercontent_t{width:1190px}#nine{margin-left:10px}#mobile a{padding-right:10px}.column{margin-bottom:-3000px;padding-bottom:3000px}.cb h2,.cb h2 a{font-size:16px}.cb h3,.cb h3 a{color:#292929}.cb h6,.cb h6 a{font-size:12px;color:#585858;font-weight:400;margin:0}.cb h4,.cb h4 a{font-size:14px;color:#292929;background:#f7f7f7;line-height:36px}.cb h6 img{margin:0 6px -2px 0}.cbp1{border-right:1px solid #DADBDF;width:215px}.cbp1 em{width:46%}.c_b i{margin:0 3px 0 0;color:#dce2e6;line-height:28px}.btop{border-top:1px solid #DADBDF;margin-top:12px}.tgList{color:#585858;width:236px;padding-left:0;border:0}.bw{overflow:hidden;_zoom:1}.bw .c_b{width:216px}.bw .column{border-left:1px dotted #D8DADD}.bw h3{padding:0 0 10px}.h3con{padding:0 0 0 20px;background:#f7f7f7}.h3con h3{padding:0;height:36px;line-height:36px;color:#292929}.cbp3{width:350px}.cbp4{width:318px}.eszfbg{position:absolute;border:1px solid #fff;padding:1px 0 2px 8px;font-weight:400;display:inline-block;z-index:99;background:#fff;width:100px;margin-top:-3px;cursor:default}.eszfbg ul{display:none}.eszfbg.hover{border-color:#cfcfd1}.eszfbg.hover ul{display:block}.cb .eszfbg a,.eszfbg{color:#585858;font-size:12px;line-height:24px}.cb .eszfbg a:hover{color:#000;text-decoration:none}.icon-down{position:absolute;right:6px;top:12px;border-color:#747c84 #fff #fff;border-style:solid;border-width:4px 4px 0;width:0;height:0;overflow:hidden}.cb .adpop{position:absolute;color:#ee4544;background:url(http://img.58cdn.com.cn/ui6/index/indexbg.png) no-repeat 0 -477px;padding:2px 8px 0 11px;height:33px;font-size:12px;line-height:16px;margin-top:-2px;margin-left:2px}.cb .adpop:hover{text-decoration:underline}.cb .red,.red{color:red}.cb .green,.green{color:green}.mar-l-15{padding-left:15px}.cbe1{border-right:1px solid #DADBDF;width:178px}.cbe2{border-right:1px solid #DADBDF;width:200px}.cbe3{width:358px}.cbe4{width:370px!important;padding-top:16px}.cbe{width:798px}.cbe4 h3{padding:6px 0 3px;*padding-top:7px}.c_b_ew5{width:1168px;padding-top:12px;padding-bottom:12px}.warp .c_b a.fc{position:absolute;font-size:12px;color:#585858;font-weight:400;margin-left:8px;}.ersright{position: absolute; width: 90px; background: url(http://img.58cdn.com.cn/ui6/index/ersright.gif) repeat scroll 0px 0px transparent; top: 14px; height: 20px;margin-left:0px;}#cbright .c_b h3 a.two1{margin-right:0;}#cbright .c_b h3 a.two2{margin-left:0;}#cbright .c_b h3 span.two{font-size: 12px;color: #585858;font-weight:400}.dj_new i{background:url(http://img.58cdn.com.cn/ui6/index/daojia_log.gif) no-repeat;position:relative;}.dj_new .dj_log_lf{top:1px;left:-2px;width:20px;height:20px;background-position:0 0;}.dj_new .dj_log_rg{top:4px;left:8px;width:134px;height:20px;background-position:-28px 0;}.dj_new em{width:auto}.magr5 em{margin-right:5px}.magr12 em{margin-right:12px}.magr15 em{margin-right:15px}.magr20 em{margin-right:20px}.magr25 em{margin-right:25px}.magr30 em{margin-right:30px}.magr35 em{margin-right:35px}.magr45 em{margin-right:45px}.magr50 em{margin-right:50px}#jubaoCent{margin-top:5px}</style>
+<link rel="stylesheet" type="text/css" href="http://c.58cdn.com.cn/ui7/css/easydialog.css"/>
+<script type="text/javascript">try { var ____json4fe = { catentry: { dispid: '', name: '', listname: 'city' }, locallist: { dispid: '1', name: '北京', listname: 'bj' }, start:(new Date()).getTime(),version:'A', modules:'homepage'} } catch (e) { };</script>
+</head>
+<body class="newcrop">
+<div id="topbar"></div>
+<div id="1001" style="display:none"></div>
+<div id="brand_top_banner" style="display:none"></div>
+<div id="homeWrap" class="wrapper">
+  <div id="header">
+    <div id="headerinside"><a href="http://bj.58.com" target="_self" id="logo" onClick="clickLog('from=sylogo_bj');"><img src="http://img.58cdn.com.cn/ui6/index/logo.gif" alt="中文最大生活信息门户" title="58同城，让生活更简单" width="188" height="50"></a><div id="1002" class="search-no" style="display:none"></div><div id="brand_mini_banner" class="search-no" style="display:none"></div>
+      <form onsubmit='_gaq.push(["pageTracker._trackEvent", "home", "search_top_click", "/bj/index/"]);var r=true;try{b_query(); r=false;}catch(e){};return r;' action="/sou/" target="_self">
+        <div id="searchbar">
+          <div id="saerkey">
+            <span id="key"><input type="text" id="keyword" name="key" class="keyword" value="高薪急聘" onBlur="win.closeToolTipWindow();if(this.value=='')this.value='高薪急聘',this.className='keyword'" onKeyUp="win.GetContentData();" onFocus="if(this.value=='高薪急聘')this.value='',this.className='keyword2'" autocomplete="off" tongji_tag="pc_home_search_area_bj"/></span>
+          </div>
+          <div class="inputcon"><input  type="submit" name="button" id="searchbtn" class="btnall"  value="同城搜索" onMouseMove="this.className='btnal2'" onMouseOut="this.className='btnall'" tongji_tag="pc_home_search_button_bj"/></div>
+          <div class="clear"></div>
+          <div class="search-no">
+            <span id="hot"><a href="/jianzhi/jh_%2525u517C%2525u804C%2525u62DB%2525u8058/">兼职招聘</a><a href="/yuesao/">月嫂</a><a href="/zufang/0/">个人出租</a></span><span class="hot2"><a href='http://t.58.com/bj/xiuxian/' onclick="_gaq.push(['pageTracker._trackEvent', 'home', 'search_hot_click', '/bj/adv/tuangou/']);">团购门票</a><a id="search_hot2_3" href="http://www.58.com/?path=wuyichuyou.shtml?from=pc_home_sousuo_small_wuyichuyou" rel="nofollow" onclick="clickLog('from=pc_home_sousuo_small_wuyichuyou');" style="color:red">五一假日游</a><a id="search_hot2_4" href="http://zhaobiao.58.com/pc/quickpost/index?cateid3=4063&from=pc_zhaobiao_zhuangxiu_home_sousuo_wyzx" rel="nofollow" onclick="clickLog('from=pc_zhaobiao_zhuangxiu_home_sousuo_wyzx')">轻松装修</a><a onClick="_gaq.push(['pageTracker._trackEvent', 'home', 'search_hot_click', '/bj/adv/jiaoyou/']);" href="http://jiaoyou.58.com/?from=home-jiaoyou-words" rel="nofollow" class="cs" tongji_tag="pc_home_topad8_bj">同城交友</a><a id="search_hot2_6" href="http://www.58supin.com/?from=speqdl_pc_hometcsprc" rel="nofollow" onclick="clickLog('from=pc_home_sousuo_small_supin');" class="cs">快速入职</a></span>
+          </div>
+        </div>
+      </form>
+      <a href="http://post.58.com/1/" id="fabu" rel="nofollow" tongji_tag="pc_home_release_bj"><i></i>免费发布信息</a><a href="http://about.58.com/info/del-menu.html" id="delinfo" rel="nofollow" class="search-no">修改<i>/</i>删除信息</a>
+    </div>
+  </div>
+  <div class="hShadow"></div>
+  <div class="navcon" id="nav">
+    <ul class="nav">
+      <li class="on" tongji_tag="index_nav_home_bj"><a href="/">首页</a></li>
+      <li><a href="/job.shtml" tongji_tag="index_nav_zhaopin_bj">招聘</a></li>
+      <li><a href="/chuzu/" tongji_tag="index_nav_zufang_bj">租房</a></li>
+      <li><a href="/ershoufang/" tongji_tag="index_nav_ershoufang_bj">二手房</a></li>
+	  <li><a href="anjukejump.shtml" tongji_tag="index_nav_xinfang_bj" onclick="clickLog('from=xfanjuke_home_bj');">新房</a></li>
+      <li><a href="/ershouche/" tongji_tag="index_nav_ershouche_bj">二手车</a></li>
+	  <li><a href="http://che.58.com/" tongji_tag="index_nav_xinche_bj">新车</a></li>
+      <li><a href="sale.shtml" tongji_tag="index_nav_ershousc_bj">二手市场</a></li>
+      <li><a href="/dog/" tongji_tag="index_nav_chongwugou_bj">宠物狗</a></li>
+      <li><a href="/huangye/" tongji_tag="index_nav_bendifw_bj">本地服务</a></li>
+      <li><a href="http://www.daojia.com?hmsr=58_pc_shouye_daohang" >58到家</a><i style="position:absolute;top:-5px;_top:0;right:0px;"><img src="http://img.58cdn.com.cn/ui6/index/icon_new.gif"></i></li>
+      <li id="mobile"><a href="http://api.wap.58.com/api/redirect/to/wap?from=daohang" tongji_tag="index_nav_shouji58_bj" rel="nofollow" style="text-decoration:none">手机58</a></li>
+      <li id="bang"><a href="http://zhaoren.58.com/?from=pc_shouye" rel="nofollow" title="商家客户端"  style="text-decoration:none">商家APP</a><i style="position:absolute;top:-5px;_top:0;right:0px;"><img src="http://img.58cdn.com.cn/ui6/index/icon_new.gif"></i></li>
+    </ul>
+    <ul class="rightside">
+	  <li><a href="http://weizhan.58.com" tongji_tag="index_nav_weizhan_bj">微站</a></li>
+    <li><a href="https://qiangui.58.com/active/pc?referrer=58" tongji_tag="index_nav_licai_bj">理财</a></li>
+	  <li id="ksfd" style="display:none;"></li>
+      <li><a href="http://e.58.com/" tongji_tag="index_nav_wytuiguang_bj" rel="nofollow">我要推广</a></li>
+	  <li><a href="http://baozhang.58.com/?from=HomeRightWord" tongji_tag="index_nav_xxpeifu_bj" rel="nofollow">先行赔付</a></li>
+	  <li><a href="http://about.58.com/hr/" tongji_tag="index_nav_jiaru58_bj" rel="nofollow">加入58</a></li>
+    </ul>
+    <div id="1003" class="ad_nav"></div>
+  </div>
+</div>
+<div class="cb">
+  <div class="warp">
+    <div class="c_b cbp1 cauto lh28">
+      <h2><a href="/house.shtml" >北京房产</a><span id="1030"></span></h2>
+      <a href="/chuzu/">房屋出租</a>&nbsp;&nbsp;<a href="/chuzu/0/" class="jf12 red">个人房源</a><br />
+      <em><a href="/zufang/">整租</a><i>/</i><a href="/hezu/">合租</a></em><a href="/qiuzu/">求租</a><br />
+      <em><a href="/ershoufang/">二手房</a></em><span id="1015"></span><br />
+      <em><a href="/shangpucz/">商铺出租</a></em><a href="/shangpucs/">商铺出售</a><br />
+      <em><a href="/shengyizr/">生意转让</a></em><a href="/zhaozu/">写字楼租售</a><br />
+      <em><a href="/duanzu/">短租/日租公寓</a></em><a href="http://bj.58.partner.mayi.com/?ca_s=tg_58&ca_n=bj&from=sy_fangchan_minsuyuding" rel="nofollow"  onclick="clickLog('from=sy_fangchan_minsuyuding');">民宿预订</a><br />
+      <a href="/fangchan/">厂房/仓库/土地/车位</a><br />
+      
+      <div class="line"></div>
+      <div class="lh29" style="line-height:28px">
+        <h2><a href="/ershouche/" tongji_tag="home_zhuanrang">二手车</a>&nbsp;&nbsp;<a href="http://quanguo.58.com/ershouche/" tongji_tag="home_quanguo" class="adv">全国二手车</a><a href="http://carprice.58.com/bj/?from=esc_gcj_shouyerukou" class="jj" style="color:red;" onclick="clickLog('from=esc_gcj_shouyerukou')">估车价</a></h2>
+        <em><a href="/ershouche/?minprice=0_3" rel="nofollow" tongji_tag="home_0_3">0-3万</a><i>/</i><a href="/ershouche/?minprice=3_5" rel="nofollow" tongji_tag="home_3_5">3-5万</a></em><a href="/ershouche/?minprice=5_8" rel="nofollow" tongji_tag="home_5_8">5-8万</a><i>/</i><a href="/ershouche/?minprice=8_10" tongji_tag="home_8_10" rel="nofollow">8-10万</a><br />
+        <em><a href="/ershouche/?minprice=10_15" rel="nofollow" tongji_tag="home_10_15">10-15万</a></em><a href="/ershouche/?minprice=15_20" rel="nofollow" tongji_tag="home_15_20">15-20万</a><i>/</i><a href="/ershouche/" tongji_tag="home_price_more" rel="nofollow">更多</a><br />
+        <em><a href="/jingjijiaoche/" tongji_tag="pc_home_esc_jc_old">轿车</a><i>/</i><a href="/paoche/" tongji_tag="pc_home_esc_pc_old">跑车</a></em><a href="http://quanguo.58.com/huoche/" tongji_tag="pc_home_esc_hc_old">货车</a><i>/</i><a href="/gongchengc/" tongji_tag="pc_home_esc_gcc_old">工程车</a><br />
+        <em><a href="/yeuyeche/" tongji_tag="pc_home_esc_suv_old">SUV</a><i>/</i><a href="/mpv/" tongji_tag="pc_home_esc_mpv_old">MPV</a></em><a href="/mianbaoche/" rel="nofollow" tongji_tag="pc_home_esc_mbc_old">面包车</a><i>/</i><a href="/ershouche/?from=esc_sygd" tongji_tag="pc_home_esc_more_old">更多</a><br />
+        <h6><a href="/ershouche/">全部品牌</a><a href="/ershouche/0" class="jj" onClick="clickLog('from=100geren')">100%个人</a><a href="/chepai/?from=shouye_chepaigujia" class="jj" onClick="clickLog('from=shouye_chepaigujia')" style="color:red">没牌买车</a></h6>
+        <em><a href="/dazhong/" tongji_tag="dazhong">大众</a><i>/</i><a href="/aodi/" tongji_tag="aodi" class="mr0">奥迪</a></em><a href="/bentian/" tongji_tag="bentian">本田</a><i>/</i><a href="/fengtian/" tongji_tag="fengtian">丰田</a><i>/</i><a href="/richan/" tongji_tag="richan">日产</a><br />
+        <em><a href="/benchi/" tongji_tag="benchi">奔驰</a><i>/</i><a href="/baoma/" tongji_tag="baoma">宝马</a></em><a href="/bieke/" tongji_tag="bieke">别克</a><i>/</i><a href="/fute/" tongji_tag="fute">福特</a><i>/</i><a href="/xiandai/" tongji_tag="xiandai">现代</a><br />
+        <em><a href="/qiya/" tongji_tag="qiya">起亚</a><i>/</i><a href="/lingmu/" tongji_tag="lingmu">铃木</a></em><a href="/xuefulan/" tongji_tag="xuefulan">雪佛兰</a><i>/</i><a href="/mazida/" tongji_tag="mazida">马自达</a><br />
+        <em><a href="/qirui/" tongji_tag="qirui">奇瑞</a><i>/</i><a href="/wulingyou/" tongji_tag="wuling">五菱</a></em><a href="/changanche/" tongji_tag="changan">长安</a><i>/</i><a href="/ershouche/" tongji_tag="home_brand_more">更多»</a><br />
+        <h6><a href="/ershouche/" onclick="clickLog('from=esc_fuwu')">服务</a><a href="/qichezl/" class="jj" tongji_tag="pc_home_esc_qczl_old">汽车租赁</a></h6>
+        <em><a href="/ershouche/?nodownpayment=4|1&bar=5" rel="nofollow" onclick="clickLog('from=home_escfenqi')">分期购车</a></em><a href="/ershouche/?zbjiance=525377&bar=4" rel="nofollow" tongji_tag="home_fangxinche">放心车</a><i>/</i><a href="/ershouche/pve_5883_2013_9999" rel="nofollow" tongji_tag="home_3year">准新车</a><br />
+        <em><a href="http://svwuc.58.com/" rel="nofollow" tongji_tag="svwuc_2sc">阳光易手车</a></em><a href="http://ad.doubleclick.net/ddm/clk/298658085;125747099;e?http://c.ctags.cn/sy3/cu66/pn4823/pc342247?http://faw-vw.58.com/?WT.mc_id=125747099&utm_source=58&utm_content=HaoHuaCheZhuanQuDaTuQuanGuoTongFa&utm_medium=ZhuanQuDaTu&utm_campaign=9253482" rel="nofollow" tongji_tag="pinzhi">品质二手车</a><br/>
+		<!-- 20150331 add xinche start -->
+		<div class="line"></div>
+		<h2><a tongji_tag="home_xinche" href="http://che.58.com/">新车</a>&nbsp;&nbsp;<a class="adv" tongji_tag="home_xinche_chexing" href="http://che.58.com/chexing/">车型大全</a><a class="jj"  tongji_tag="home_xinche_jiangjia" href="http://che.58.com/jiangjia/">热门降价</a></h2>
+		<em><a tongji_tag="aodia4l_s" href="http://che.58.com/aodia4l_s/">A4L</a><i>/</i><a tongji_tag="pasate_s" href="http://che.58.com/pasate_s/">帕萨特</a></em><a tongji_tag="benchigla_s" href="http://che.58.com/benchigla_s/">GLA</a><i>/</i><a tongji_tag="ziyouguang_s" href="http://che.58.com/ziyouguang_s/">自由光</a><em><a href="http://che.58.com/zhuanti/d/shanghaidazhong/sign.html?s=1&from=58home_dz">大众</a><i>/</i><a href="http://che.58.com/zhuanti/d/shanghaidazhong/sign.html?s=2&from=58home_skd">斯柯达</a></em><a tongji_tag="hafu_b" href="http://che.58.com/hafu_b/">哈弗</a><i>/</i><a tongji_tag="baoshijie_b" href="http://che.58.com/baoshijie_b/">保时捷</a>
+		<!-- 20150331 add xinche end -->
+		<div class="line"></div>
+        <h3><a href="/qichefw.shtml?from=58_shouye_qichefw" rel="nofollow">汽车服务</a><span id="1026"></span></h3>
+        <em><a href="/changtupinche/">长途拼车</a></em><a href="/sxbpinche/">上下班拼车</a><br />
+        <em><a href="/zuche/" class="red">租车</a><i>/</i><a href="http://c.58cdn.com.cn/index/jxedt_xueche.html?from=58.com_index_qiche_1" tongji_tag="sy_jxedt_xueche">学车</a></em><a href="/jiaxiaopx/">驾校</a><i>/</i><a href="http://c.58cdn.com.cn/index/jxedt_jiaolian.html?from=58.com_index_qiche_2" tongji_tag="sy_jxedt_jiaolian">教练</a><br />
+        <em><a href="/peijia/">代驾</a> <a href="/peilian/" onclick="clickLog('from=pc_bjhome_hy_peilian')">陪练</a></em><a href="/maiche/">4S店</a><br />
+        <em><a href="/daibanguohu/">过户/验车</a></em><a href="/qichefuwu/?from=58_shouye_qichefuwu" rel="nofollow">汽车保险</a><br />
+        <h6>维修保养</h6>
+        <em><a href="/qichejx/">维修保养</a></em><a href="/cheliangfuwu/">美容装饰</a><br />
+        <em><a href="/gaizhuangfanghu/">改装/防护</a></em><a href="/peijian/">汽车配件/其他</a><br />
+		<em><a href="http://peilian.58.com" style="color:#15c;" tongji_tag="peilian_home">58汽车陪练</a></em><a href="http://weizhang.58.com" style="color:#15c;" onClick="clickLog('from=wzcx_app_shouye');">违章查询</a><br/>
+        <div class="line"></div>
+        <h3><a href="/jiaoyu.shtml?from=58_shouye_jiaoyu" rel="nofollow">教育培训</a><span id="1010"></span></h3>
+        <em><a href="/jiajiao/" style="color:red">家教机构</a></em><a href="/jiajiaogeren/">家教个人</a><br />
+        <em><a href="/techang/">艺术培训</a></em><a href="/fudao/" class="mr0">课外辅导班</a><br />
+        <em><a href="/zhiyepeix/">职业培训</a></em><a href="/xueli/">学历教育</a><br />
+        <em><a href="/tiyu/">体育培训</a></em><a href="/youjiao/" class="mr0">婴幼儿教育</a><br />
+        <em><a href="/shejipeixun/">设计培训</a></em><a href="/jisuanji/">IT培训</a><br />
+        <em><a href="/waiyu/">语言培训</a></em><a href="/liuxue/">出国留学</a><br />
+        <em><a href="/mba/">管理培训</a></em><a href="/yimin/">移民</a><br />
+      </div>
+      <!--北京游戏和购物板块   start-->
+      <div class="line"></div>
+    <h3><a href="http://wan.58.com/?from=58.com_home_wan_0" onclick="clickLog('from=youxi-center');" rel="nofollow">游戏中心</a><a href="http://wan.58.com/jjsg/new" class="jj" rel="nofollow">一起玩街机三国</a></h3>
+  <div class="line"></div>
+  <h3><a href="http://t.58.com/bj/?from=58.com_homeright" rel="nofollow" tongji_tag="pc_home_tg_old">北京团购</a><a rel="nofollow" href="http://t.58.com/bj/meishi/?from=58.com_home_liebiao_bj_1" class="jj" tongji_tag="pc_home_tg_cyms_old">餐饮美食 </a><a rel="nofollow" class="jj" href="http://t.58.com/hotel/bj/2/?from=58.com_home_liebiao_bj_2" tongji_tag="pc_home_tg_lyjd_old">旅游酒店</a></h3>
+  <!--北京游戏和购物板块   end-->
+    </div>
+    <div class="c_b cbp2 cauto" style="line-height:28px">
+      <h2 style="position:relative;"><a href="/sale.shtml">二手市场</a><span id="ersright"><a style="position:absolute;top:12px;left:75px;width:130px;height:20px;background:url(http://img.58cdn.com.cn/ui6/index/58_es_byzj.gif) no-repeat;" href="http://youpin.58.com/?channel=58shouye" onclick="clickLog('from=pcindex');"></a></span></h2>
+      <em><a onclick="clickLog('from=es_recommend_shouyeyy_left')" href="http://www.zhuanzhuan.com/?zhuanzhuanSourceFrom=930" rel="nofllow">真实个人闲置</a></em><a onclick="clickLog('from=es_recommend_shouyeyy_right')" href="http://ershou.58.com/spring.shtml?from=es_pc_spring_wenzilian" rel="nofllow">五折iPhone</a>
+      <div class="c_b_ews">
+        <h6>数码 &bull; 通讯</h6>
+        <em><a href="/shouji/0/">二手手机</a></em><a href="/iphonesj/0/">苹果</a><i>/</i><a href="/sanxing/0/" >三星</a><i>/</i><a href="/xiaomi/0/">小米</a><br />
+        <em><a href="/diannao/0/">台式电脑</a></em><a href="/xianshiqi/0/">显示器</a><i>/</i><a href="/diannaopeijian/0/">硬件</a><br />
+        <em><a href="/bijiben/0/">笔记本</a></em><a href="/ibm/0/" >ThinkPad</a><i>/</i><a href="/apple/0/">苹果</a><br />
+        <em><a href="/pbdn/0/">平板电脑</a></em><a href="/pbdnsanxing/0/" >三星</a><i>/</i><a href="/pbdnipad/0/">iPad</a><br />
+        <em><a href="/shuma/0/">数码产品</a></em><a href="/shumaxiangji/0/">相机</a><i>/</i><a href="/danfanxiangji/0/" >单反</a><i>/</i><a href="/youxiji/0/" >游戏机</a><br/>
+        <em><a href="/shoujihao/">手机号码</a></em><a href="/tongxunyw/">通讯业务</a><i>/</i><a href="/tongxunyw/0/?key=%E7%94%B5%E4%BF%A1&cmcskey=%E7%94%B5%E4%BF%A1" tongji_tag="PC_home_ershou_tongxundianxin_bj">电信</a><br />
+        <h6>家具 &bull; 家电 &bull; 车辆<a href="/ershoujiaju/0/?key=%E5%AE%9C%E5%AE%B6" style="margin-left:18px;">二手宜家家具</a></h6>
+        <em><a href="/jiadian/">二手家电</a></em><a href="/ershoukongtiao/" onClick="clickLog('from=es_sy_jd_kongtiao');">空调</a><i>/</i><a href="/dianshiji/">电视</a><i>/</i><a href="/bingxiang/" onClick="clickLog('from=es_sy_jd_bingxiang');">冰箱</a><br />
+        <em><a href="/ershoujiaju/" tongji_tag="pc_home_essc_esjj_old">二手家具</a></em><a href="/jiajushafa/" >沙发</a><i>/</i><a href="/chuang/">床</a><i>/</i><a href="/zhuolei/">桌</a><br />
+        <em><a href="/danche/" class="red" tongji_tag="pc_home_essc_mtc_old">摩托车</a></em><a href="/yamaha/">雅马哈</a><i>/</i><a href="/dapailiang/0/" tongji_tag="PC_home_ershou_danchedapailiang_bj">大排量</a><br/>
+        <em><a href="/zixingche/">自行车</a></em><a href="/diandongche/">电动车</a><i>/</i><a href="/sanlunche/" tongji_tag="PC_home_ershou_sanlunche_bj">三轮车</a><br/>
+        <h6>百货 &bull; 设备<a href="/nanzhuang/0/" style="margin-left:40px;">换季衣服便宜清</a></h6>
+        <em><a href="/jujia/0/">家居日用</a></em><a href="/guozaochuju/0/">厨具</a><i>/</i><a href="/buyishipin/0/" >布艺</a><i>/</i><a href="/chuangshangyongpin/0/" >床品</a><br />
+        <em><a href="/yingyou/0/">母婴玩具</a></em><a href="/yingerchuang/0/" >婴儿床</a><i>/</i><a href="/muyingtongchuang/0/" >车</a><i>/</i><a href="/ertongyongpin/0/">玩具</a><br />
+        <em><a href="/fushi/0/">服装箱包</a></em><a href="/fuzhuangshoubiao/0/" >手表</a><i>/</i><a href="/xiangbao/0/">箱包</a><i>/</i><a href="/fsxiemao/0/">鞋</a><br />
+        <em><a href="/bangong/">办公设备</a></em><a href="/bangongzhuoyi/" >办公桌</a><i>/</i><a href="/huojiazhanjia/?from=sy_es_shbh_huogui" onclick="clickLog('from=sy_es_shbh_huogui')">货柜</a><br />
+		<em><a href="/wenti/0/">文体户外</a></em><a href="/jianshenqixie/0/" >健身</a><i>/</i><a href="/yueqi/0/" >乐器</a><i>/</i><a href="/qipai/0/" >麻将桌</a><br />
+        <em><a href="/yishu/">艺术收藏</a></em><a href="/gudongguwan/" >古玩</a><i>/</i><a href="/bawanwujian/">把件</a><i>/</i><a href="/shufahuihua/" >字画</a><br />
+        <em><a href="/chengren/">成人用品</a></em><a href="/meirong/0/">美容保健</a><br />
+        <em><a class="red" href="/ershoushebei/" onClick="clickLog('from=es_sy_esshebei');">二手设备</a></em><a href="/kuangye/" >机床</a><i>/</i><a href="/wajueji/">挖掘机</a><i>/</i><a href="/newchache/">叉车</a><br />
+        <em><a href="/tushu/0/">图书音像</a></em><a href="/xiaoyuan/">校园二手</a><br />
+        <em><a href="/lipin/0/">礼品转让</a></em><a href="/wangyou/0/">游戏交易</a><br />
+        <em><a href="/ershouqiugou/">二手求购</a></em><a href="/huanwu/0/">交换</a><i>/</i><a href="/ershoufree/0/">赠送</a><i>/</i><a href="/tiaozao/0/">其他</a><br />
+      </div>
+      <div class="line mt"></div>
+      <h3 id="petsCategory"><a href="/pets.shtml">宠物/宠物用品</a></h3>
+      <em><a href="/dog/" class="red">宠物狗</a></em><a href="/cat/">宠物猫</a><br />
+      <em><a href="/hashiqi/">哈士奇</a></em><a href="/jianmao/">金毛</a><br/>
+      <em><a href="/bixiong/">比熊</a></em><a href="/ditaixiong/">泰迪熊</a><br />
+      <em><a href="/pet/">花鸟鱼虫</a></em><a href="/chongwu/">宠物服务</a><br />
+      <em><a href="/guanshangyu/">观赏鱼</a></em><a href="/wanshangniao/">玩赏鸟</a><br/>
+      <em><a href="/qitaxiaochong/">奇趣小宠</a><i>/</i><a href="/gui/">龟</a></em><a href="/shipin/">宠物用品</a><i>/</i><a href="/yugang/" tongji_tag="PC_home_ershou_yugang_bj">鱼缸</a><br/>
+      <div class="line mt"></div>
+      <h3 style="position:relative;"><a href="/piaowu.shtml">票务</a><span id="1012"></span></h3>
+      <em><a href="/piao/">演出票</a></em><a href="/dianyingpiao/">电影票卡</a><br />
+      <em><a href="/tiyusaishi/">体育赛事</a></em><a href="/youle/">游乐园景点</a><br />
+      <em><a href="/gouwuka/">购物卡</a></em><a href="/jianshenka/" class="red">健身卡</a><br />
+      <em><a href="/youyongka/">游泳卡</a></em><a href="/qtpiaowu/">其他票务</a><br />
+      <em><a href="/jipiao/">特价机票</a></em><a href="http://lieche.58.com/">火车票查询</a><br />
+      <em><a href="http://piao.58.com/bj/">北京演出信息</a></em><a href="http://58.lecai.com/?from=home-body-caipiao" rel="nofollow" >彩票</a><i>/</i><a href="http://58.lecai.com/lottery/ssq/?from=home-body-caipia-1" rel="nofollow" >双色球</a><br /> 
+      <!--北京交友  start--> 
+      <div class="line"></div>
+      <h3><a href="http://jiaoyou.58.com/bj/" onclick="clickLog('from=jiaoyou-city-bj');">北京交友</a></h3>
+      <em><a href="http://jiaoyou.58.com/bj/mm/?from=home-jiaoyou-mm" class="nvyou" onclick="clickLog('from=jiaoyou-nv');" rel="nofollow">找美女</a></em><a href="http://jiaoyou.58.com/bj/zhenghun/?from=home-jiaoyou-hunlian" class="red" onclick="clickLog('from=jiaoyou-zhenghun');" rel="nofollow">同城征婚</a><br>
+      <em><a href="http://jiaoyou.58.com/bj/gg/?from=home-jiaoyou-gg" class="nanyou" onclick="clickLog('from=jiaoyou-nan');" rel="nofollow">找帅哥</a></em><a href="http://jiaoyou.58.com/encounter/?from=home-jiaoyou-encounter" onclick="clickLog('from=jiaoyou-xiehou');" rel="nofollow">在线约会</a><br>
+      <em><a href="http://jiaoyou.58.com/skills?from=home-jiaoyou-jinengjh" onclick="clickLog('from=jiaoyou-jineng');" rel="nofollow">技能交友</a></em><a href="http://jiaoyou.58.com/mmvideo/?from=home-jiaoyou-mmxc" onclick="clickLog('from=jiaoyou-kuxing');">视频交友</a><br>
+      <em><a href="http://jiaoyou.58.com/photowall/?from=home-jiaoyou-zpjx" onclick="clickLog('from=jiaoyou-zhaopian');" rel="nofollow">真人照片</a></em><a href="http://jiaoyou.58.com/6rooms/?from=home-jiaoyou-spjy" onclick="clickLog('from=jiaoyou-6room');" rel="nofollow">美女表演</a><br>
+      <!--北京交友  end-->   
+    </div>
+    <div class="c_b cbp3 cauto">
+      <div class="c_b_ew3">
+        <h2 style="position:relative;"><em><a href="/job.shtml">北京招聘</a></em><em><a href="/searchjob.shtml">北京求职简历</a></em><span id="pugongsp"><a href="http://www.58supin.com/gongzuo/pugong/?from=pg_pchomewl" rel="nofollow" style="font-weight:normal;font-size:12px;" class="mg01">普工速聘</a></span></h2>
+        <em><a href="http://bj.58supin.com/?from=speqdl_pc_hometcspbq"  style="color:red">同城速聘</a></em><em><a href="/job/?param6693=8&from=baocz_zhaopin" rel="nofollow">包吃住专区</a></em><a href="/job/?param6693=1" rel="nofollow">五险一金专区</a><br/>
+        <em><a href="/zptaobao/" class="mr0">淘宝店招聘</a></em><em><a href="/job/?param6693=6" rel="nofollow">周末双休专区</a></em><a href="/job/?param7503=1&from=yjs_zhaopin" tongji_tag="zp_yjszq" rel="nofollow">应届生专区</a>
+        <div id="zp_brand_wrap"><style>.zp_brand_sub{display:none}</style><h6><a href="http://qy.58.com/famous/">知名企业招聘</a><span id="1023"></span></h6><em><a href="http://click.58.com/adJump?adType=7&target=nTDQTHDKnTDQTHD3rjEvrTDQrj9YPW9KnTDznWTYnH9vPjbYP1bLPEDksWcknjmLnWmvnHmknjmvnWmvTHTVniYQPjmQPH03PWcznHE1siYvnWmLrHnznW9KPH9Kn-qVuT7vni3kTgPCmyOMph-6Ty7_UT7CIZwkrBtf0gb8PH98mvqVsvdQs1cLPHDzrj0LP1E3nWnQTgPryj7zXDufIZPGHhqNmY_Qnhnzn1DvPj-hmWDQn1-Wuj0kn1DvryuBmWIBuADkPhEYPh7hm1-hmvNQnvDvuADYrj9YPjDOrAnYrynvuHEz" id="brand_188468" rel="nofollow">呱呱洗车</a></em><em><a href="http://click.58.com/adJump?adType=7&target=nTDQTHDKnTDQTHckrHT3PkDznjbkrj0KnTD1rjEQnWbdP1bdPWmzPkDksW0YP1NLnH0OrHDkrjbdrHNKnaYQsHDYPWDdP19vnWcQPjEVsHckPWEznHTQrjNKPH9Kn-qVuT7vni3kTgPCmyOMph-6Ty7_UT7CIZwkrBtfIjN3n19dPWNOnHb3P1EdP1m8PH9draOWUvYfTguamRFHwZG_uDdjigKDnL0kn1wBrj9vuHwbuHR6nH6BnyFbmW9OPhPWuhcdnjuhnjKhPjEQnWFhnhF6m1TQnyP6PvFbPyc3ujNQnWT3njDz" id="brand_209087" rel="nofollow">咪咕咖啡</a></em><em><a href="http://click.58.com/adJump?adType=7&target=nTDQTHDKnTDQTH9vrED3PWbKnTDQnHDQnHDQnEDksWnzPHTvn1mvP1cknHEdPHcKnaYQsHDYPWDdP19vnWcQPjEVnHb1nHE3nWDQrEDdrTDzgvdbTgmQsWTK0v66UhIJpyDKmyQ_Ty6YIZTlszqQXi3draOWUvYfuARBmyOMsvGfmMnz5vGfmhP6IANqPWTLsjcYnHD_nWNdnzu_UvP6UA-b5HDKHY3dE17LP7IgN7CzURTLyjcYuynQP1IWuW0zuhD1rHR-njb1uyc3rHDLnyFBmyPbnyPWnHc3nhFWnW9zrjbLrAnYujNknAF6rH0kPynzPAN" id="brand_869" rel="nofollow">德邦物流</a></em><em><a href="http://click.58.com/adJump?adType=7&target=nTDQTHDKnTDQTHbknkDOnjnKnTDQnHDQnHDQnEDksWTOrHDYnHNQPHEzPWmYrH01THTVniYQPjmQPH03PWcznHEdsiYznHTLPWDYPWTkTHN3THFxUyEKIWD8nT71pA78uvGGmE76UAkKpZwY0jCfsvFJsWN3shPfUiqouyuds1cQrj9vPH9kP103rjbdXaO1pZwVUjqEwdwFwjYQPjn1nWD1nHTvP1czna3OPWTOPHb3rH9dPjTLPHTQFbP_pyPoiNEqnE7HRhqduyG1wA-kRbu5XDVdujNzPWRhuHbdn103uW-bPWTQPhmYPjuhn10kPWcznWbkPvcznW9kPW0LnjIWPyEzryw-n1RhmyckPHK6rH7Wu9" id="brand_903" rel="nofollow">贝塔斯曼</a></em><em><a href="http://click.58.com/adJump?adType=7&target=nTDQTHDKnTDQTHbkPTDOnjEKnTDQnHDQnHDQnEDksWEdnH9QPW0dn1mLPW03PW0dTHTVniYQPjmQPH03PWcznHEvsiYQPW9OrHcdPWT1THN3THFxUyEKIWD8nT71pA78uvGGmE76UAkKpZwY0jCfsvFJsWN3shPfUiql0AQvXyqdph-duA-6UBtznWTYrjbYPW9QnjEkng980v6YUykKmhqKI1FKwNRl01uauhwWyHF-uH-Wnyw-mvnkPj0YuhFBuhFbmHbYrHDLuHPWuANvPWmkuAPbn1KBmHnLnHRbPvN1mWKbPhDdPH0LnvRhuAm" id="brand_904" rel="nofollow">海底捞火锅</a></em><em><a href="http://click.58.com/adJump?adType=7&target=nTDQTHDKnTDQTHDQrH9KnHDOrTDkTHDQnHDQnHDQTHT8PWTvP10kP1NknHmLrHN3rEDksHDVnHEvnHNLrjmznWDYPzYVnH9YnHNLrHT3PkDdrTDzgvdbTgmQsWTK0v66UhIJpyDKmyQ_Ty6YIZTlszqQXi3draOWUvYfUgDfPWn1PWczrHNvnWnLPT7dH-GOHLRkEM78yyR60g6Ym1w-rHPhnH6WnHRhPj6Wnvm1PWb3PjPbPycYnjmzPH9duWE3PvmdmW9drADkuAw-Pjcdnh7Wnvc3uymkmHTQPk" id="brand_1198" rel="nofollow">五八同城</a></em><h6><a href="/job/">热招职位</a><span id="1024"></span></h6></div>
+		<div class="zp_brand_sub">
+			<h6><a href="http://qy.58.com/famous/">知名企业招聘</a></h6>
+			<em><a href="http://qy.58.com/debang/jobs">德邦物流</a></em><em><a href="http://qy.58.com/miqilinshow/bj/1">米其林</a></em><a href="http://qy.58.com/mq/9459488743687/">百度</a><br/><em><a href="http://qy.58.com/mq/24318198501894/">招商银行</a></em><em><a href="http://qy.58.com/mq/20356045/">京东商城</a></em><a href="http://qy.58.com/mq/13727145255687/">绫致时装</a>
+			<h6><a href="/job/">热招职位</a></h6>
+		</div>
+      </div>
+      <div class="c_b_ew2">
+        <em><a href="/yewu/">销售</a></em><em><a href="/kefu/">客服</a></em><em><a href="/siji/">司机</a></em><a href="/yingyeyuan/">营业员</a><br />
+        <em><a href="/wenziluru/">文员</a></em><em><a href="/mishu/">助理</a></em><em><a href="/pugong/">普工</a></em><a href="/cuxiao/">导购员</a><br />
+        <em><a href="/qiantai/">前台</a></em><em><a href="/bianji/">编辑</a></em><em><a href="/dianzi/">电工</a></em><a href="/shouying/">收银员</a><br />
+        <em><a href="/caiwu/">会计</a></em><em><a href="/youerjiaoshi/">幼教</a></em><em><a href="/zpshengchankaifa/">技工</a></em><a href="/lihuoyuan/">理货员</a><br />
+        <em><a href="/chuna/">出纳</a></em><em><a href="/baojieyuan/">保洁</a></em><em><a href="/mugong/">木工</a></em><a href="/dianzhang/">店长</a><br />
+        <em><a href="/zhaopinjingli/">人事</a></em><em><a href="/baomuxin/">保姆</a></em><em><a href="/zhizaogongchengshi/">操作工</a></em><a href="/cantfwy/">服务员</a><br />
+        <em><a href="/renli/">行政</a></em><em><a href="/yuesaoyuying/">月嫂</a></em><em><a href="/baoanl/">保安</a></em><a href="/canguan/">厨师</a><br />
+        <em><a href="/wangluogongchengshi/">网管</a></em><em><a href="/jiazhengbaojiexin/">家政</a></em><em><a href="/cangku/">库管</a></em><a href="/chufangqiepei/">配菜</a><br />
+        <em><a href="/baojiananmozuliao/">足疗师</a></em><em><a href="/fangdichan/">房产</a></em><em><a href="/sudiyuan/">快递员</a></em><a href="/zpxuetu/">学徒</a><br />
+        <em><a href="/faxingshi/">发型师</a></em><em><a href="/baoxian/">保险</a></em><em><a href="/banyungong/">搬运工</a></em><a href="/miandianshi/">面点师</a><br />
+        <em><a href="/meirongshi/">美容师</a></em><em><a href="/zhdiang/">钟点工</a></em><em><a href="/zpzagong/">杂工</a></em><a href="/xiwangong/">洗碗工</a><br />
+        <em><a href="/huazhuangshizg/">化妆师</a></em><em><a href="/xicheyuan/">洗车工</a></em><em><a href="/songcanyuan/">送餐员</a></em><a href="/datangjingli/">大堂经理</a><br />
+        <div id="chinahrhide"><em><a href="/zptaobaokefu/">淘宝客服</a></em><em><a href="/zhenjiuzg/">推拿师</a></em><em><a href="/xitougong/">洗头工</a></em><a href="/zpjiudianqiantai/">酒店前台</a><br />
+        <em><a href="/caigouyuan/">采购员</a></em><em><a href="/songshuigong/">送水工</a></em><em><a href="/ziliao/">资料员</a></em><a href="/zpjianshen/">运动健身</a><br />
+        <em><a href="/zpdingpiao/">订票员</a></em><em><a href="/zpzhiye/">置业顾问</a></em><em><a href="/zpwuye/">物业管理</a></em><a href="/qiantjd/">迎宾接待</a><br /></div>
+        <em><a href="/wtxieying/">摄影师</a></em><em><a href="/qichewx/">汽车修理</a></em><em><a href="/qichemeirong/">汽车美容</a></em><a href="/job.shtml">更多职位»</a><br />
+<span id="1033"></span>
+      </div>
+      <div class="clear"></div>
+      <div class="line"></div>
+      <div class="c_b_ew3">
+        <h3>热门行业<a class="hgray" style="margin-left:26px;" href="/zhaopinhui/">北京招聘会</a><span id="1031"></span></h3>
+        <em><a href="/zpjiudian/">酒店/旅游</a></em><em><a href="/zpwuliucangchu/">仓储/物流</a></em><a href="/zhuanye/">教育/培训</a><br>
+        <em><a href="/zplvyoujiudian/">餐饮</a></em><em><a href="/zpfangchanjianzhu/">建筑</a></em><a href="/tech/">计算机/网络</a><br>
+        <em><a href="/zpwentiyingshi/">娱乐/休闲</a></em><em><a href="/zpqiche/">汽车服务</a></em><a href="/jinrongtouzi/">金融/银行</a><br>
+        <em><a href="/chaoshishangye/">超市/百货</a></em><em><a href="/zpyiyuanyiliao/">医疗/护理</a></em><a href="/shichang/">市场/媒介</a><br>
+        <em><a href="/zpanmo/">保健按摩</a></em><em><a href="/zpzhiyao/">制药/生物</a></em><a href="/zpguanggao/">广告/会展</a><br>
+        <em><a href="/meirongjianshen/">美容/美发</a></em><em><a href="/zpjixieyiqi/">电子电气</a></em><a href="/zpmeishu/">美术/设计</a><br>
+        <em><a href="/zpjianshen/">运动健身</a></em><em><a href="/zpjixie/">机械仪器</a></em><a href="/xiaofeipin/">纺织/食品</a><br>
+      </div>
+      <div class="c_b_ew3">
+        <div class="line"></div>
+        <h3><em><a href="/jianzhi.shtml">北京兼职</a></em><a rel="nofollow" href="/xueshengjianzhi/?from=jz_xueshengjianzhi" class="adv">学生兼职</a><span id="zp_jz_r"><a rel="nofollow" href="http://www.doumi.com/?ca_name=58&ca_source=58pc&ca_from=sytitle&hmsr=58&hmpl=sytitle&hmcu=&hmkw=&hmci=" style="color:red;font-weight:normal;margin-left:66px;font-size:13px">放心兼职</a></span></h3>
+        <em><a href="/canyinfuwu/">钟点工</a></em><em><a href="/jianzhifwy/">服务员</a></em><a href="/fachuandan/">传单派发</a><br>
+        <em><a href="/jiaoyupeixun/">家教</a></em><em><a href="/yuyanwenzi/">翻译</a></em><a href="/computer/">设计制图</a><br>
+        <em><a href="/xiaoshoucuxiao/">促销</a></em><em><a href="/jianzhicaiwu/">会计</a></em><a href="/jisuanjiwl/">网站建设</a><br>
+        <em><a href="/liyiyanyi/">礼仪</a></em><em><a href="/kefushichang/">问卷调查</a></em><a href="/partime/">其他兼职</a><br>
+      </div>
+      <div class="clear"></div>
+      <div class="line"></div>
+      <div class="c_b_ew2" style="line-height:28px">
+        <h3><a href="/searchjob.shtml">求职简历</a><a class="hgray" style="margin-left:20px" href="http://jianli.58.com/">简历搜索</a></h3>
+        <em><a href="/qzyewu/">销售</a></em><em><a href="/qzwenziluru/">文员</a></em><em><a href="/qzcuxiao/">导购</a></em><a href="/qzsheji/">平面设计</a><br>
+        <em><a href="/qzkefu/">客服</a></em><em><a href="/qzqiantai/">前台</a></em><em><a href="/qzfangdichan/">房产经纪</a></em><a href="/qzrenli/">人事/行政</a><br>
+        <em><a href="/qzmishu/">助理</a></em><em><a href="/qzcaiwu/">会计</a></em><em><a href="/qzbaoxian/">保险经纪</a></em><a href="/qzcangku/">仓库管理</a><br>
+      </div>
+    </div>
+    <div class="clear"></div>
+  </div>
+  <div id="cbright" class="cauto lh28 cbp4">
+  <!--58到家入口  start-->
+  <div class="c_b dj_new magr5"><h2 style="background:none"><a onclick="clickLog('from=pc_home_58daojia_title');" href="http://www.daojia.com?hmsr=58_pc_shouye_home" rel="nofollow"><i class="dj_log_lf"></i>58到家自营服务<i class="dj_log_rg"></i></a></h2><div class="clear"></div><em><a onclick="clickLog('from=pc_home_58daojia_baojie');" href="http://bj.daojia.com/baojie1/?hmsr=58_pc_shouye_baojie" rel="nofollow">保洁</a></em><em><a onclick="clickLog('from=pc_home_58daojia_yuesao');" href="http://bj.daojia.58.com/yuesao/?__partner=58pc&hmsr=58_pc_shouye_yuesao">月嫂</a></em><em><a onclick="clickLog('from=pc_home_58daojia_yuersao');" href="http://bj.daojia.58.com/yuersao/?__partner=58pc&hmsr=58_pc_shouye_yuersao" rel="nofollow">育儿嫂</a></em><em><a onclick="clickLog('from=pc_home_58daojia_baomu');" href="http://bj.daojia.com/baomu?hmsr=58_pc_shouye_baomu" rel="nofollow">保姆</a></em><em><a onclick="clickLog('from=pc_home_58daojia_meijia');" href="http://bj.daojia.com/meijia/?hmsr=58_pc_shouye_meijia" rel="nofollow">美甲</a></em><em><a onclick="clickLog('from=pc_home_58daojia_banjia');" href="http://bj.daojia.com/banjia/?hmsr=58_pc_shouye_banjia" rel="nofollow">搬家</a></em><em style="margin-right:0"><a onclick="clickLog('from=pc_home_58daojia_duigong');" href="http://bj.daojia.com/duigong/?hmsr=58_pc_shouye_duigong" rel="nofollow">企业后勤</a></em></div>
+  <!--58到家入口 end-->
+    <div class="c_b">
+      <div class=""><h2 style="background:none;"><a href="/huangye/?from=58_shouye_huangye" rel="nofollow">本地服务大全</a><a class="sy" onclick="clickLog('from=pc_home_sousuo_small_wuyichuyou')" rel="nofollow" href="http://www.58.com/?path=wuyichuyou.shtml?from=pc_home_small_wuyichuyou">五一放假去旅行</a></h2></div>
+      <div class="clear"></div>
+	  <em><a href="http://www.58.com/?path=sheyingwangji.shtml?from=pc_home_no1_sheying" rel="nofollow" onclick="clickLog('from=pc_home_no1_sheying')" style="color:red">不一样的摄影发烧季</a></em><em><a onclick="clickLog('from=pc_zhaobiao_zhuangxiu_home_bendi_no2');" href="http://zhaobiao.58.com/pc/quickpost/index?cateid3=4063&from=pc_zhaobiao_zhuangxiu_home_bendi_no2" rel="nofollow">装修从未如此简单</a></em><br /><em><a onclick="clickLog('from=pc_zhaobiao_jiazheng_home_bendi_no3');" href="http://zhaobiao.58.com/pc/bid/apply?city=bj&cateId=4273&from=pc_zhaobiao_jiazheng_home_bendi_no3" rel="nofollow">快来找得力保洁助手</a></em><em><a onclick="clickLog('from=pc_home_no4_jiameng_bj');" href="/jiancaijm/?from=pc_home_no4_jiameng_bj" rel="nofollow">年赚百万首选建材</a></em>
+    </div>
+    <div class="c_b c_b_ew2">
+      <h3><a href="/shenghuo.shtml?from=58_shouye_shenghuo" rel="nofollow">家政服务</a><span id="1027"></span><span id="hsj"></span></h3>
+      <em><a href="/banjia/" onclick="clickLog('from=pc_home_hy_banjia_bj')">搬家</a></em><em><a href="/baomu/" onclick="clickLog('from=pc_bjhome_hy_yuesao')">保姆/月嫂</a></em><em><a href="/zhongdiangong/">钟点工</a></em><a href="/baojie/" onclick="clickLog('from=pc_bjhome_hy_baojie')">保洁</a><br />
+      <em><a href="/shutong/">疏通</a></em><em><a href="/shipinlei/?from=58_shouye_shipin_bj">食品</a><i>/</i><a href="/xianhuasudi/?from=58_shouye_lipin_bj">礼品</a></em><em><a href="/songshui/">生活配送</a></em><a href="/ganxi/">洗衣店</a><br />
+      <em><a href="/huishou/?from=58_shouye_huishou_bj">回收</a></em><em><a href="/lipinxianhua/?from=58_shouye_xianhua_bj">鲜花绿植</a></em><em><a href="/binzang/?from=58_shouye_baishi_bj">白事服务</a></em><a href="/zuche/?from=58_shouye_zuche" rel="nofollow" style="color:red">租车</a><br />
+    </div>
+    <div class="c_b c_b_ew3">
+      <em><a href="/fangweixiu/">房屋维修</a></em><em><a href="/jiajuweixiu/">家具维修</a></em><a href="/dianqi/">家电</a><i>/</i><a href="/shoujiweixiu/">手机维修</a><br /><em><a href="/weixiu/">电脑维修</a></em><em><a href="/kaisuo/">开锁换锁</a></em><a href="/dianlu/?from=58_shouye_dianlu" rel="nofollow">电路</a><i>/</i><a href="/kongtiao/?from=58_shouye_kongtiao" rel="nofollow">空调维修</a><br>
+      <h3><a href="/hunjiehunqing.shtml?from=58_shouye_hunjiehunqing" rel="nofollow">婚庆摄影</a><span id="1008"></span><span class="hqsy"></span></h3>
+      <em><a href="/hunqing/" style="color:red">婚庆</a></em><em><a href="/hunsha/">摄影摄像</a></em><a href="/huizhan/">礼仪庆典</a><br />
+      <em><a href="/hunqingzuche/">婚车租赁</a></em><em><a href="/hunshasy/">婚纱摄影</a></em><a href="/ertongsheying/">儿童摄影</a><br />
+      <h3 ><a href="/zhuangxiujc.shtml?from=58_shouye_zhuangxiujc" rel="nofollow">装修建材</a><span id="1009"></span></h3>
+      <em><a href="/jiazhuang/">家庭装修</a></em><em><a href="/gongzhuang/">工装服务</a></em><a href="http://xiaoguotu.58.com/meitu/?from=58_shouye_modle_tuku">装修效果图</a><br />
+      <em><a href="/jiancai/">建材</a></em><em><a href="/jiajusp/">家具</a></em><a href="/jiajuzs/">家纺家饰</a><br />
+    </div>
+    <div class="c_b c_b_ew3">
+      <h3><a href="/shangwu.shtml?from=58_shouye_shangwu" rel="nofollow">商务服务</a><span id="sw"><a href="http://zhaobiao.58.com/pc/bid/goSubmit?plid=1&pcateid=4065&from=pc_zhaobiao_shangwu_home_wenzi_gszc" class="sy" onclick="clickLog('from=pc_zhaobiao_shangwu_home_wenzi_gszc');" style="color:red">注册公司轻松找代理</a></span></h3>
+      <em><a href="/zhuce/">工商注册</a></em><em><a href="/caishui/">财务会计</a></em><a href="/shangbiaozhli/">商标专利</a><br />
+      <em><a href="/danbaobaoxiantouzi/">投资担保</a></em><em><a href="/lvshi/">法律</a><i>/</i><a href="/zixunzhongjie/">咨询</a></em><a href="/qimingfengshui/">起名</a><br />
+      <em><a href="/huoyun/">货运物流</a></em><em><a href="/kuaidi/">快递</a></em><a href="/baoxianfuwu/">保险</a><i>/</i><a href="/wuliu/">货运专线</a><br />
+      <em><a href="/wangzhan/">网站建设</a></em><em><a href="/xitong/">网络布线</a></em><a href="/chuanmei/">广告传媒</a><br />
+      <em><a href="/pingmian/">设计策划</a></em><em><a href="/yinshua/">印刷包装</a></em><a href="/penhui/">喷绘</a><i>/</i><a href="/allzhika/">制卡</a><br />
+      <em><a href="/lipindingzhi/">礼品定制</a></em><em><a href="/zhanhuifuwu/">展会服务</a></em><a href="/fanyi/">翻译/速记</a><br />
+      <em><a href="/zulin/">租赁</a><i>/</i><a href="/huojiasheb/?from=58_shouye_huojiasheb">货架</a></em><em><a href="/bgsbwx/">设备维修</a></em><a href="/jianzhuweixiu/">建筑</a><i>/</i><a href="/jixieweixiu/">机械维修</a><br />
+    </div>
+    <div class="c_b c_b_ew2">
+      <h3><a href="/lvyouxiuxian.shtml?from=58_shouye_lvyouxiuxian" rel="nofollow">旅游酒店</a><span id="1011"></span></h3>
+      <em><a href="/zhoubianyou/" class="red">周边游</a></em><em><a href="/nongjiale/">农家乐</a></em><em><a href="/wenquandujiacun/">温泉</a></em><a href="/shaokaoy/?from=shaokao_bd_bj" >烧烤</a><br />
+      <em><a href="/lvyouxianlu/">国内游</a></em><em><a href="/guojilvyou/">出境游</a></em><em><a href="/lvyou/">旅行社</a></em><a href="http://kezhan.58.com/bj/?from=duanzu_kezhan_home_bj" rel="nofollow">特价订房</a><br />
+    </div>
+    <div class="c_b c_b_ew2">
+      <h3><a href="/zhaoshang.shtml">招商加盟</a><a   class="zsjm"  href='/canyinjia/?from=shouye_zhaoshang_bj_1' rel="nofollow" >十大赚钱行业等你创业！</a></h3>
+      <em><a href="/canyinjia/" class="red">餐饮加盟</a></em><em><a href="/fuzhuangjia/">服装鞋包</a></em><em><a href="/qitajiameng/">特色加盟</a></em><a href="/jixiejiagong/">机械</a><i>/</i><a href="/qczsjm/">汽车</a><br>
+      <em><a href="/wanbbajm/">网店</a><i>/</i><a href="/lipinshipin/">礼品</a></em><em><a href="/jiancaijm/">建材加盟</a></em><em><a href="/jiajuhuanbao/">家居环保</a></em><a href="/meirongbaojain/">美容</a><i>/</i><a href="/jiaoyuertong/">母婴</a>
+    </div>
+    <div class="c_b c_b_ew3">
+      <h3><a rel="nofollow" href="/xiuxianyl.shtml?from=58_shouye_xiuxianyl">休闲娱乐</a><span id="1032"></span></h3>
+      <em><a href="/jianshen/">运动健身</a></em><em><a href="/jiuba/">夜店酒吧</a></em><a href="/zuliaoam/" onclick="clickLog('from=pc_bjhome_hy_xxam')" style="color:red">足疗/按摩</a><br />
+      <em><a href="/ktv/">KTV</a></em><em><a href="/huwaiyundong/">户外运动</a></em><a href="/xiyuzx/">洗浴/温泉</a><br />
+    </div>
+    <div class="c_b c_b_ew2">
+      <h3><a rel="nofollow" href="/yiliaobaojian.shtml?from=58_shouye_yiliaobaojian">医疗健康</a><a rel="nofollow" class="sy yygh" href="http://tools.58.com/hospital.shtml">挂号</a><span id="1028"></span></h3>
+      <em><a href="/nanke/">男科</a><i>/</i><a href="/zaoxie/">早泄</a></em><em><a href="/fukeyiy/">妇科</a><i>/</i><a href="/renliu/">人流</a></em><em><a href="/jingzhuibing/">颈椎</a><i>/</i><a href="/yaozuijianpantch/">腰椎</a></em><a id="tijian" class="red" href="http://58.viptijian.com/Share/citylist.html" tongji_tag="yljk_tijian_bj">体检</a><br>
+      <em><a href="/zhuankeyiy/">皮肤病</a></em><em><a href="/baidianfeng/">白癜风</a></em><em><a href="/yinjingyc/">阴茎延长</a></em><a href="/buyunbuyu/">不孕不育</a><br>
+      <em><a href="/zhongyiyuan/"onclick="clickLog('from=pc_bjhome_hy_ylbj')">保健按摩</a></em><em><a href="/zhengxing/">整形美容</a></em><em><a href="/jianruisy/">尖锐湿疣</a></em><a id="jiankangwenda" href="http://www.58.com/jk/">健康问答</a><br>
+      <ul class="c_b_list">
+        <li>
+          <h3><a href="/canyin.shtml?from=58_shouye_canyin" rel="nofollow">餐饮美食</a><a href="/waimai/?from=pc_home_canyin_small_waimai" class="sy" onclick="clickLog('from=pc_home_canyin_small_waimai');">外卖点这里</a></h3>
+          <em><a href="/waimai/">外卖</a></em><a href="/kuaican/">快餐/团膳</a><br />
+          <em><a href="/dangao/">蛋糕订购</a></em><a href="/zhongcanyin/">美食</a><br />
+        </li>
+        <li>
+          <h3><a href="/liren.shtml?from=58_shouye_liren" rel="nofollow">丽人</a><a href="/yujia/?from=pc_home_liren_small_yujia_bj" class="sy" onclick="clickLog('from=pc_home_liren_small_yujia_bj');">舞出好身材</a></h3>
+          <em class="w1"><a href="/mianbumeir/">美容</a><i>/</i><a href="/spa/" style="color:red">SPA</a></em><a href="/meitishou/">美体瘦身</a><br />
+          <em class="w1"><a href="/ssmeifa/">美发</a></em><a href="/jianshenwudao/">舞蹈/瑜伽</a><br />
+        </li>
+      </ul>
+    </div>
+    <div class="c_b c_b_ew3"><h3><a rel="nofollow" href="/nonglinmy.shtml?from=58_shouye_nonglinmy" style="width:76px;">农林牧副渔</a><a class="nlmfy" href="/nongzuowu/">农作物</a><a class="nlmfy" href="/yuanlinye/">园林花卉</a><a class="nlmfy" href="/xumuye/">畜禽养殖</a></h3>
+    </div>
+    <div class="c_b c_b_ew3"><h3><a rel="nofollow" href="/shop.shtml?from=58_shouye_pifa_bj" style="width:76px;">批发采购</a><a href="/huazhuangp/?from=58_shouye_huazhuangp_bj" class="nlmfy">化妆品</a><a href="/fushixm/?from=58_shouye_fushi_bj" class="nlmfy">服饰鞋帽</a><a href="/huwaiyd/?from=58_shouye_ydyongpin_bj" class="nlmfy">运动用品</a></h3>
+    </div>
+  </div>
+</div> 
+<div class="cb" style="margin-top:12px;">
+  <div class="tab">
+    <div class="bar_right qlink"><a href="http://game.58.com/yxb/?from=58.com_bottom_bj_5" tongji_tag="yxbjy">游戏币交易</a><a href="http://game.58.com/zc/?from=58.com_bottom_bj_6" tongji_tag="dkcz">点卡充值</a><a href="http://weizhan.58.com/case/city/bj/all/" tongji_tag="wzpaihang">北京微站排行</a><a href="/xunren?from=58.com_bottom_bj_1" rel="nofollow" onClick="clickLog('from=home_bottom_ad_bj_xuren');">寻人启事</a><a href="/xunwu?from=58.com_bottom_bj_2" rel="nofollow" onClick="clickLog('from=home_bottom_ad_bj_xunwu');">失物招领</a><a href="/xunchong?from=58.com_bottom_bj_3" rel="nofollow" onClick="clickLog('from=home_bottom_ad_bj_xunchong');">寻宠物</a><a href="http://shop.58.com/bj/" onClick="clickLog('from=home_bottom_ad_bj_shop');">店铺大全</a></div>
+    <div class="tit">
+      <span class="active">常用服务</span><span>热点专题</span>
+    </div>
+    <div class="pad-tb-15 tabCon" style="display:block;">
+      <div class="bw">
+        <div class="c_b">
+          <h3>交通出行</h3>
+          <em><a href="http://map.baidu.com/" rel="nofollow" onclick="javascript:clickLog('from=homebottomclick&city=bj&type=map');_gaq.push(['pageTracker._trackEvent', 'home', 'bottom_click', '/bj/home/bottom/map']);">在线地图</a></em><a href="http://lieche.58.com" rel="nofollow" onclick="javascript:clickLog('from=homebottomclick&city=bj&type=liecheshike');_gaq.push(['pageTracker._trackEvent', 'home', 'bottom_click', '/bj/home/bottom/liecheshike']);">列车时刻</a><br />
+          <em><a href="/zumpv/" rel="nofollow" onClick="clickLog('from=shouye_cyfw_swzuche');">商务租车</a></em><a href="http://tools.58.com/traffic.shtml" onclick="javascript:clickLog('from=homebottomclick&city=bj&type=jiaotong');_gaq.push(['pageTracker._trackEvent', 'home', 'bottom_click', '/bj/home/bottom/jiaotong']);">交通违章</a><br />
+          <em><a href="http://www.58.com/qichepiao/" onclick="javascript:clickLog('from=homebottomclick&city=bj&type=qiche');_gaq.push(['pageTracker._trackEvent', 'home', 'bottom_click', '/bj/home/bottom/qiche']);">汽车票查询</a></em><a href="/jipiao/" onclick="javascript:clickLog('from=homebottomclick&city=bj&type=jipiao');_gaq.push(['pageTracker._trackEvent', 'home', 'bottom_click', '/bj/home/bottom/jipiao']);">特价机票</a><br />
+        </div>
+        <div class="c_b column">
+          <h3>生活助手</h3>
+          <em><a href="http://tools.58.com/tv.shtml" onclick="javascript:clickLog('from=homebottomclick&city=bj&type=tv');_gaq.push(['pageTracker._trackEvent', 'home', 'bottom_click', '/bj/home/bottom/tv']);">电视直播</a></em><a href="http://www.douguo.com/caipu" rel="nofollow" onclick="javascript:clickLog('from=homebottomclick&city=bj&type=caipu');_gaq.push(['pageTracker._trackEvent', 'home', 'bottom_click', '/bj/home/bottom/caipu']);">美食菜谱</a><br />
+          <em><a href="http://tools.58.com/hospital.shtml" onclick="javascript:clickLog('from=homebottomclick&city=bj&type=guahao');_gaq.push(['pageTracker._trackEvent', 'home', 'bottom_click', '/bj/home/bottom/guahao']);">医院挂号</a></em><a href="http://waimai.taobao.com/shop_list.htm" rel="nofollow" onclick="javascript:clickLog('from=homebottomclick&city=bj&type=waimai');_gaq.push(['pageTracker._trackEvent', 'home', 'bottom_click', '/bj/home/bottom/waimai']);">外卖订餐</a><br />
+          <em><a href="http://www.cnmo.com/?pvareaid=58" onclick="javascript:clickLog('from=homebottomclick&city=bj&type=cnmo');_gaq.push(['pageTracker._trackEvent', 'home', 'bottom_click', '/bj/home/bottom/cnmo']);">手机大全</a></em><a href="/huishou/?from=cyfw_shzs_eshs" onclick="clickLog('from=cyfw_shzs_eshs')">二手回收</a><br />
+        </div>
+        <div class="c_b column">
+          <h3>便民服务</h3>
+          <em><a href="http://tools.58.com/kuaidi.shtml" onclick="javascript:clickLog('from=homebottomclick&city=bj&type=kuaidi');_gaq.push(['pageTracker._trackEvent', 'home', 'bottom_click', '/bj/home/bottom/kuaidi']);">快递查询</a></em><a href="http://tools.58.com/phone.shtml" class="red" rel="nofollow" onclick="javascript:clickLog('from=homebottomclick&city=bj&type=mobile');_gaq.push(['pageTracker._trackEvent', 'home', 'bottom_click', '/bj/home/bottom/mobile']);">话费充值</a><br />
+          <em><a href="http://www.cncn.com/paihang/" rel="nofollow" onclick="javascript:clickLog('from=homebottomclick&city=bj&type=travel');_gaq.push(['pageTracker._trackEvent', 'home', 'bottom_click', '/bj/home/bottom/travel']);">旅游景点</a></em><a href="http://www.58.com/kaoshiyueli/?from=58_shouye_kaoshiyueli" rel="nofollow" onclick="javascript:clickLog('from=homebottomclick&city=bj&type=ksyl');_gaq.push(['pageTracker._trackEvent', 'home', 'bottom_click', '/bj/home/bottom/ksyl']);">2015考试月历</a><br />
+          <em><a href="http://tools.58.com/anquanqi.shtml" rel="nofollow" onclick="javascript:clickLog('from=homebottomclick&city=bj&type=lady');_gaq.push(['pageTracker._trackEvent', 'home', 'bottom_click', '/bj/home/bottom/lady']);">女性安全期</a></em><a href="https://jiaofei.alipay.com/jiaofei.htm" rel="nofollow" onclick="javascript:clickLog('from=homebottomclick&city=bj&type=life');_gaq.push(['pageTracker._trackEvent', 'home', 'bottom_click', '/bj/home/bottom/life']);">水电煤缴费</a><br />
+        </div>
+        <div class="c_b column">
+          <h3>金融理财</h3>
+          <em><!--<!--<a class="red" href="http://58.caipiao.163.com/?from=shouye_changjian_ssq" rel="nofollow" onclick="clickLog('from=caipiao-2yuan');">2元赢千万</a>--><a class="red" href="/qitajiameng/?from=changyong_zhaoshang" rel="nofollow">创业新点子</a></em><a href="http://quote.eastmoney.com/zs000001.html" rel="nofollow" onclick="javascript:clickLog('from=homebottomclick&city=bj&type=gupiao');_gaq.push(['pageTracker._trackEvent', 'home', 'bottom_click', '/bj/home/bottom/gupiao']);">股票行情</a><br />
+          <em><a href="http://gold.hexun.com/hjxh/" rel="nofollow" onclick="javascript:clickLog('from=homebottomclick&city=bj&type=gold');_gaq.push(['pageTracker._trackEvent', 'home', 'bottom_click', '/bj/home/bottom/gold']);">黄金价格</a></em><a href="http://cha.58.com/calc/fang_loan.html" rel="nofollow" onclick="javascript:clickLog('from=homebottomclick&city=bj&type=fdjsq');_gaq.push(['pageTracker._trackEvent', 'home', 'bottom_click', '/bj/home/bottom/fdjsq']);">房贷计算器</a><br />
+          <em><a href="http://www.hao123.com/baoxian" rel="nofollow" onclick="javascript:clickLog('from=homebottomclick&city=bj&type=shebao');_gaq.push(['pageTracker._trackEvent', 'home', 'bottom_click', '/bj/home/bottom/shebao']);">社保查询</a></em><a href="http://www.hao123.com/haoserver/gjjcx.htm" rel="nofollow" onclick="javascript:clickLog('from=homebottomclick&city=bj&type=zfgjj');_gaq.push(['pageTracker._trackEvent', 'home', 'bottom_click', '/bj/home/bottom/zfgjj']);">住房公积金</a><br />
+        </div>
+        <div class="c_b column">
+          <h3>工具大全</h3>
+          <em><a href="http://hao.360.cn/rili/" rel="nofollow" onclick="javascript:clickLog('from=homebottomclick&city=bj&type=date');_gaq.push(['pageTracker._trackEvent', 'home', 'bottom_click', '/bj/home/bottom/date']);">万年历</a></em><a href="http://tools.58.com/suanming.shtml" onclick="javascript:clickLog('from=homebottomclick&city=bj&type=bzsm');_gaq.push(['pageTracker._trackEvent', 'home', 'bottom_click', '/bj/home/bottom/bzsm']);">八字算命</a><br />
+          <em><a href="http://app.baidu.com/app/enter?appid=278234" rel="nofollow" onclick="javascript:clickLog('from=homebottomclick&city=bj&type=hdjr');_gaq.push(['pageTracker._trackEvent', 'home', 'bottom_click', '/bj/home/bottom/hdjr']);">黄道吉日</a></em><a href="http://tools.58.com/jiemeng.shtml" rel="nofollow" onclick="javascript:clickLog('from=homebottomclick&city=bj&type=zgjm');_gaq.push(['pageTracker._trackEvent', 'home', 'bottom_click', '/bj/home/bottom/zgjm']);">周公解梦</a><br />
+          <em><a href="http://astro.sina.com.cn/luck/" rel="nofollow" onclick="javascript:clickLog('from=homebottomclick&city=bj&type=luky');_gaq.push(['pageTracker._trackEvent', 'home', 'bottom_click', '/bj/home/bottom/luky']);">星座运势</a></em><a href="http://lengxiaohua.com/" rel="nofollow" onclick="javascript:clickLog('from=homebottomclick&city=bj&type=xiaohua');_gaq.push(['pageTracker._trackEvent', 'home', 'bottom_click', '/bj/home/bottom/xiaohua']);">爱讲冷笑话</a>
+        </div>
+      </div>
+    </div>
+    <div class="tabCon">
+      <ul class="imgTag">
+          <li><a title="" onclick="clickLog('from=home_bottom_ad_bj_shengji');" rel="nofollow" href="http://dingyue.58.com/qiantu/shengji?from=home-foot-banner"><img src="http://img.58cdn.com.cn/ui6/index/indexad/hot_car.jpg" width="180" height="110"><span>快速卖车好时机</span><span class="shade"></span></a></li>
+          <li><a title="" onclick="clickLog('from=home_bottom_ad_bj_canjiren');" rel="nofollow" href="http://about.58.com/hr/canjiren/"><img src="http://img.58cdn.com.cn/ui6/index/indexad/hot_canji.jpg" width="180" height="110"><span>残疾人招聘绿色通道</span><span class="shade"></span></a></li>
+          <li><a title="" onclick="clickLog('from=home_bottom_ad_bj_safelds');" rel="nofollow" href="http://ershou.58.com/activity/pet?from=home_topic_cwszz"><img src="http://img.58cdn.com.cn/ui6/index/indexad/cw_10zui.jpg" width="180" height="110"><span>meng宠十宗最</span><span class="shade"></span></a></li>
+          <li><a title="" onclick="clickLog('from=home_bottom_ad_bj_huqing');" rel="nofollow" href="/hunqing/?from=58_shouye_hunqing"><img src="http://img.58cdn.com.cn/ui6/index/indexad/hot_2014marry.png" width="180" height="110"><span>2016咱们结婚吧</span><span class="shade"></span></a></li>
+          <li><a title="" onclick="clickLog('from=home_bottom_ad_bj_help');" rel="nofollow" href="http://static.58.com/ui7/help/index.html"><img src="http://img.58cdn.com.cn/ui6/index/indexad/hot_xiaobao.png" width="180" height="110"><span>诚信58简单生活</span><span class="shade"></span></a></li>
+          <li class="hide"><a title="" onclick="clickLog('from=home_bottom_ad_bj_listed');" rel="nofollow" href="http://static.58.com/listed/index.html"><img src="http://img.58cdn.com.cn/ui6/index/indexad/hot_listed.jpg" width="180" height="110"><span>58同城成功登陆纽交所</span><span class="shade"></span></a></li>
+        </ul>
+    </div>
+  </div>
+</div>
+<div id="brand_service_provider_wrap" style="display:none;" class="cb btop">
+  <div class="h3con"><h3>北京知名服务商</h3></div>
+  <div id="brand_service_provider" class="c_b c_b_ew5">
+  </div>
+</div>
+<div class="morelink">
+  <div class="morelinkinside" >
+  <div class="searchbt">
+  <form onsubmit='_gaq.push(["pageTracker._trackEvent", "home", "search_bottom_click", "/bj/index/"]);$("#keyword").val($("#keywordbt").val());b_query();return false;'>
+      <div id="searchbarbt">
+        <div id="saerkeybt"><span id="keybt">
+          <input type="text" id="keywordbt" name="key" class="keyword" value="高薪急聘" onBlur="win.closeToolTipWindow();if(this.value=='')this.value='高薪急聘',this.className='keyword'" onKeyUp="win.GetContentData();" onFocus="if(this.value=='高薪急聘')this.value='',this.className='keyword2'" autocomplete="off" />
+          </span></div>
+        <div class="inputcon">
+          <input  type="submit" name="button" id="searchbtnbt" class="btnall"  value="同城搜索" onMouseMove="this.className='btnal2'" onMouseOut="this.className='btnall'" />
+        </div>
+        </div>
+    </form>
+  </div>
+  </div>
+</div>
+<div id="1005" style="display:none"></div>
+<div id="brand_bottom_banner" style="display:none"></div>
+<div id="footer">
+  <div class="bg">
+    <div id="contact" style="color:#000;"> <a href="http://about.58.com/" title="有问题请与58客服进行对话" class="fduihua" rel="nofollow">客服</a><span>|</span><a href="http://about.58.com/info/del-menu.html" class="red" rel="nofollow">删除信息</a><span>|</span><a href="http://about.58.com/home/" rel="nofollow">关于我们</a><span>|</span><a href="http://ir.58.com" rel="nofollow">Investor Relations</a><span>|</span><a href="http://e.58.com/" rel="nofollow">推广服务</a><span>|</span><a href="http://biz.58.com" rel="nofollow">渠道招商</a><span>|</span><a href="http://about.58.com/hr/" rel="nofollow">加入我们</a><span>|</span><a href="http://track.58.com/recookie/index" target="_blank" rel="nofollow">隐私协议</a><span>|</span><a href="http://about.58.com/fqz/index.html" rel="nofollow">防网络诈骗</a><span>|</span><a rel="nofollow" href="http://about.58.com/cleanpolitics/show/" onclick="clickLog('from=sylianzhengjb');" >廉政举报</a><span class="attention" id="attention"><a class="icon-sina" href="http://e.weibo.com/58tongcheng" rel="nofollow" title="新浪微博"></a><a class="icon-qq" href="http://e.t.qq.com/www-58-com" rel="nofollow" title="腾讯微博"></a><a class="icon-qzone" href="http://user.qzone.qq.com/1526027420/" rel="nofollow" title="QQ空间"></a><a class="icon-weixin" href="javascript:;" rel="nofollow" target="_self" title="微信"></a>
+    <div class="weiLayer" id="weiLayer">
+      <a class="close" href="javascript:;" target="_self">关闭</a>
+      <div class="erweima"></div>
+      <div class="erTxt">
+        <h3>轻松加微信：</h3>
+        <p>1、打开微信<br/>2、点击底部菜单“发现”<br/>3、选择“扫一扫”功能，<br/>4、对准左方二维码即可关注</p>
+      </div>
+      <div class="line"></div>
+      <div>公众号：<span class="orange">58同城</span>　　<span>|</span>　　微信号：<span class="orange">amazing58</span></div>
+      <div class="triangle"></div>
+    </div></span><br />
+      京公网安备110105000809号 <a href="http://www.miibeian.gov.cn/" rel="nofollow">京ICP证060405</a>乙测资字11018014<a id='___szfw_logo___' href='https://search.szfw.org/cert/l/CX20120918001650001720' rel="nofollow"><img src='http://img.58cdn.com.cn/ui6/index/rongyum.png' align="absmiddle" width="88" height="20"/></a>违法信息举报：4008135858 &nbsp; jubao@58.com<div id="jubaoCent"><a href="http://www.12377.cn/"><img src="http://img.58cdn.com.cn/ui6/index/jubaotel.png"></a><a href="http://www.12377.cn/node_548446.htm"><img src="http://img.58cdn.com.cn/ui6/index/jubaoapp.png"></a></div><script type='text/javascript'>(function(){document.getElementById('___szfw_logo___').oncontextmenu = function(){return false;}})();</script></div>
+  </div>
+  <div class="clear"></div>
+</div>
+<script type="text/javascript" src="http://j1.58cdn.com.cn/js/v7/hp/load.js?v=124"></script> 
+<script type="text/javascript">
+readyToDo("$,HP",function(){
+  HP.topbar.init();
+  var dela = $("<a id='delinfo' href='' rel='nofollow' class='search-no' title='可删除手机号被冒用发布的信息'>修改/删除信息<\/a>");
+  if(HP.user.isLogin()){dela.attr({"href":'http://my.58.com/?pp=idxinfoupdate','onClick':"_gaq.push(['pageTracker._trackEvent', 'home', 'click', 'my_info_del']);"});} else {dela.attr({"href":'http://about.58.com/info/del-menu.html?from=home','onClick':"_gaq.push(['pageTracker._trackEvent', 'home', 'click', 'info_del']);"});}
+  $('#headerinside').append(dela);
+});
+</script>
+<div style="display:none"> 
+<script type="text/javascript">
+readyToDo("$",function(){
+$(document.body).append('<scr' + 'ipt src="http://usdtop.58.com/advertising/echo.js?cityid=1&city=bj&cateid=0&categorycode=1001_1002_1003_1004_1005_1006_1007_1008_1009_1010_1011_1012_1013_1014_1015_1023_1024_1026_1027_1028_1030_1031_1032_1033&rand=' + Math.random() + '"></scr' + 'ipt>');})</script>
+  <script type="text/javascript">
+var _trackURL = "{'area':'1','pagetype':'home','GA_pageview':''}";
+readyToDo("$",function(){
+  $.getScript('http://tracklog.58.com/referrer4.js');
+});
+</script>
+<script type="text/javascript"> 
+document.write('<sc'+'ript type="text/javascript" id="adstat_js" src="http://stat.58.xgo.com.cn/adrs/58ol.js"></scr'+'ipt>'); 
+</script> 
+</div>
+</body>
+</html>
+
+</div>
+</body>
+</html>
